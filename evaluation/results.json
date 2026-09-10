@@ -1,7 +1,25 @@
 {
-  "timestamp": "2026-09-11T00:30:35.764359",
-  "evaluation_dataset_size": 200,
-  "execution_time_seconds": 6.33,
+  "timestamp": "2026-09-11T02:01:20.577204",
+  "golden_set_size": 200,
+  "golden_set_human_verified_count": 0,
+  "execution_time_seconds": 15.59,
+  "leakage_check": {
+    "status": "passed",
+    "exact_raw_overlap": 0,
+    "exact_clean_overlap": 0,
+    "normalized_substantive_overlap": 1,
+    "retrieval_index_overlap": 0,
+    "zero_leakage_verified": true
+  },
+  "evaluation_metadata": {
+    "judge_type": "unconfigured",
+    "judge_provider": "none",
+    "judge_model": "none",
+    "judge_status": "pending_api_key",
+    "human_annotation_status": "pending_manual_review",
+    "human_sample_size": 40,
+    "offline_rubric_included": true
+  },
   "comparison_table": {
     "baseline_1_majority": {
       "name": "Baseline 1: Majority Class",
@@ -50,82 +68,43 @@
       "automation_coverage": 0.415
     }
   },
-  "reply_quality": {
-    "mean_overall": 4.63,
+  "reply_quality": null,
+  "offline_rubric_sanity_check": {
+    "role": "offline_sanity_check_diagnostic",
+    "warning": "Do NOT report as LLM-as-a-judge",
+    "mean_overall": 4.51,
     "dimensions": {
       "correctness": {
-        "mean": 4.66,
-        "median": 5,
-        "std": 0.96,
-        "distribution": {
-          "1": 0,
-          "2": 23,
-          "3": 0,
-          "4": 0,
-          "5": 177
-        }
+        "mean": 3.94,
+        "std": 0.79
       },
       "groundedness": {
         "mean": 5.0,
-        "median": 5,
-        "std": 0.0,
-        "distribution": {
-          "1": 0,
-          "2": 0,
-          "3": 0,
-          "4": 0,
-          "5": 200
-        }
+        "std": 0.0
       },
       "relevance": {
         "mean": 3.65,
-        "median": 5,
-        "std": 1.45,
-        "distribution": {
-          "1": 0,
-          "2": 86,
-          "3": 0,
-          "4": 13,
-          "5": 101
-        }
+        "std": 1.45
       },
       "helpfulness": {
         "mean": 4.47,
-        "median": 5,
-        "std": 0.88,
-        "distribution": {
-          "1": 0,
-          "2": 0,
-          "3": 53,
-          "4": 0,
-          "5": 147
-        }
+        "std": 0.88
       },
       "brand_consistency": {
         "mean": 5.0,
-        "median": 5,
-        "std": 0.0,
-        "distribution": {
-          "1": 0,
-          "2": 0,
-          "3": 0,
-          "4": 0,
-          "5": 200
-        }
+        "std": 0.0
       },
       "safety_unsupported_claims": {
         "mean": 5.0,
-        "median": 5,
-        "std": 0.0,
-        "distribution": {
-          "1": 0,
-          "2": 0,
-          "3": 0,
-          "4": 0,
-          "5": 200
-        }
+        "std": 0.0
       }
     }
+  },
+  "human_agreement": {
+    "status": "pending_manual_review",
+    "message": "Human annotations are required before human-vs-LLM agreement can be calculated.",
+    "completed_samples": 0,
+    "target_samples": 40
   },
   "main_intent_detailed": {
     "model_name": "Main System: Hybrid Calibrated Agent",

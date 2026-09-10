@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AgentCopilot from './components/AgentCopilot';
 import EvaluationDashboard from './components/EvaluationDashboard';
+import HumanReviewView from './components/HumanReviewView';
 import HistoricalExplorer from './components/HistoricalExplorer';
 import AnalyticsView from './components/AnalyticsView';
 import AboutView from './components/AboutView';
@@ -15,6 +16,8 @@ export default function App() {
         return <AgentCopilot apiBaseUrl={apiBaseUrl} />;
       case "evaluation":
         return <EvaluationDashboard apiBaseUrl={apiBaseUrl} />;
+      case "review":
+        return <HumanReviewView apiBaseUrl={apiBaseUrl} />;
       case "historical":
         return <HistoricalExplorer apiBaseUrl={apiBaseUrl} />;
       case "analytics":
@@ -32,6 +35,8 @@ export default function App() {
         return { title: "Customer Support Agent Copilot", subtitle: "AI-assisted support grounded in 28,477 historical resolutions" };
       case "evaluation":
         return { title: "Evaluation Benchmark Dashboard", subtitle: "Rigorous evaluation against baselines on 200 Golden Set cases" };
+      case "review":
+        return { title: "Human Review — Reply Quality Assessment", subtitle: "Blind manual assessment across 6 standardized dimensions (40 interactions)" };
       case "historical":
         return { title: "Historical Support Explorer", subtitle: "Browse and search through real resolved @SpotifyCares Twitter conversations" };
       case "analytics":
@@ -72,6 +77,14 @@ export default function App() {
             onClick={() => setActiveTab("evaluation")}
           >
             <span>📊</span> Evaluation & Baselines
+          </button>
+
+          <button
+            id="nav-review"
+            className={`nav-item ${activeTab === "review" ? "active" : ""}`}
+            onClick={() => setActiveTab("review")}
+          >
+            <span>✍️</span> Human Review
           </button>
 
           <button

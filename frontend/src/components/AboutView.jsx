@@ -36,20 +36,28 @@ export default function AboutView() {
 
           <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <li>
-              <strong>Balanced Golden Set vs Real-World Class Skew</strong>:
+              <strong>1. Balanced Golden Set vs Real-World Class Skew</strong>:
               Our 200-example Golden Evaluation Set uses a uniform 20-samples-per-intent distribution (10% per class). In real Twitter production, over 35% of all incoming inquiries are billing or playback complaints. If evaluated on the raw imbalanced stream, overall micro-accuracy would appear higher (~70%), but at the expense of concealing poor recall on minority intents like <code>device_connectivity</code> and <code>catalog_licensing</code>.
             </li>
             <li>
-              <strong>Offline Rubric vs Real Customer Satisfaction (CSAT)</strong>:
-              A 4.63/5 judge score measures whether the drafted reply addresses the stated complaint using verified brand diagnostic playbooks. However, offline text cannot evaluate whether the customer’s phone actually started playing music, or whether the user was annoyed by being asked to perform a clean reinstall.
+              <strong>2. Offline Text Rubric vs Real Customer Satisfaction (CSAT)</strong>:
+              An offline score measures whether the drafted reply addresses the stated complaint using verified brand diagnostic playbooks. However, offline text cannot evaluate whether the customer’s phone actually started playing music, or whether the user was annoyed by being asked to perform a clean reinstall.
             </li>
             <li>
-              <strong>High False Escalation Overhead</strong>:
+              <strong>3. High False Escalation Overhead</strong>:
               Our escalation engine achieves a stellar <strong>4.76% False Auto-Handling Rate</strong> (only 2 out of 42 true escalations missed). However, this safety comes at the cost of a <strong>72.8% False Escalation Rate</strong> on ambiguous or noisy queries. In production, this would route many benign but poorly phrased inquiries to human agents, requiring calibrated tiering before full deployment.
             </li>
             <li>
-              <strong>Zero-Leakage Generalization Gap</strong>:
-              Because we enforced strict chronological splitting and completely excluded the Test split from the 28,477-case vector index, the system had to generalize across app releases and temporal shifts. Models tested on randomly shuffled splits routinely report inflated 85%+ numbers due to memorizing identical customer complaints from the same day.
+              <strong>4. Historical Twitter Data vs Current Spotify Support Policy</strong>:
+              The Twitter dataset captures historical resolutions from past app versions. Corporate policies, UI settings, student discounts, and international catalog rights evolve over time; historical tweets must not be treated as immutable legal policy.
+            </li>
+            <li>
+              <strong>5. Moderate Real-World Intent Accuracy (61.0% Accuracy / 59.9% Macro F1)</strong>:
+              While outperforming classical ML baselines (+5.0% F1 lift), a ~60% macro F1 reflects the genuine challenge of conversational Twitter messages. Tweets combining multiple complaints (e.g. offline download sync failure followed by app crash) and extreme informal slang remain difficult for single-label classifiers.
+            </li>
+            <li>
+              <strong>6. LLM Judge Scores as an Evaluator Proxy</strong>:
+              LLM-as-a-judge scores provide scalable evaluation signal but have inherent model preferences (e.g. verbosity, formatting). They must never be conflated with absolute ground truth or human consensus.
             </li>
           </ol>
         </div>

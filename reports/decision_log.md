@@ -58,42 +58,42 @@ This log documents key architectural, algorithmic, and methodological decisions 
 - **Why**:
   1. A uniform 20-per-intent distribution prevents majority classes from overwhelming macro-averaged evaluation metrics.
   2. Multi-tier difficulty reflects operational reality: real Twitter support contains heavily truncated slang, typos, and overlapping multi-issue complaints.
-  3. Strict isolation from the Train/Retrieval pool guarantees that test accuracy measures genuine semantic generalization rather than vector retrieval lookup.
+  3. Strict isolation from the training data: 0 conversation overlap, 0 exact text overlap.
 - **Alternatives Considered**:
-  - LLM-generated synthetic queries: Synthetic benchmarks fail to capture authentic Twitter conversational noise, typos, and user frustration.
-  - Proportional sampling matching raw frequencies: Would result in over 35% billing/playback queries and only 2-3 examples for device connectivity or catalog licensing, rendering minority intent evaluation statistically meaningless.
+  - Random uniform sampling from test split: Produces an imbalanced evaluation set (40% billing and 2% device connectivity) where high accuracy on billing hides total failure on minority technical issues.
 - **Tradeoff**:
-  - Requires dedicated annotation rules and deterministic difficulty filtering to ensure consistent, non-subjective labeling across all 200 items.
+  - A uniform distribution does not reflect raw production class distribution (where billing is 35%+ of incoming traffic). Macro-metrics reflect per-intent competency rather than volume-weighted accuracy.
 
 ---
 
-### Decision 5 — Main Intent Classifier: Hybrid Calibrated Model
+### Decision 5 — Main Intent Classifier: Hybrid Calibrated Architecture
 
-- **Decision**: Architect the primary intent classifier as a calibrated hybrid multi-signal engine combining n-gram discriminative probabilities, intent taxonomy semantic descriptors, and domain-anchor soft priors, producing structured Pydantic outputs with explainability and uncertainty detection.
+- **Decision**: Deploy a Hybrid Calibrated Intent Classifier combining dense semantic embeddings, sublinear TF-IDF character/word n-grams, high-precision domain regex anchors, and calibrated softmax probabilities.
 - **Why**:
-  1. Pure LLM-per-query classification introduces API latency (~1.5s/call), high monetary costs, and vendor dependence for what should be a sub-50ms operational routing step.
-  2. Pure unweighted bag-of-words ML over-predicts high-frequency tokens (e.g. confusing playback complaints containing the word "playlist" with library management).
-  3. Calibrated softmax scaling yields accurate confidence scores, enabling the system to reliably flag ambiguous multi-intent inquiries (`is_uncertain: true`) for conservative escalation.
+  1. Pure TF-IDF struggles with conversational paraphrasing (*"shuffle is completely broken"* vs *"tracks keep repeating"*).
+  2. Pure neural embeddings struggle with exact operational keywords (*"SheerID"*, *"CSRF token"*, *"PS4"*).
+  3. The hybrid model achieves 61.0% Accuracy and 59.9% Macro F1 on the balanced 200 Golden Set cases (+5.0% F1 lift over tuned TF-IDF Logistic baseline and +58.1% F1 lift over Majority Class baseline).
+  4. Returns full Pydantic-validated output with explicit decision reasons, confidence margins, and uncertainty flags.
 - **Alternatives Considered**:
-  - LLM-only classification: Too slow and costly for high-throughput Twitter support feeds.
-  - Zero-shot cosine prototype matching: Weaker discriminative power than n-gram ML on short, slang-heavy customer queries.
+  - Zero-shot LLM classification on every turn: Expensive ($0.01/call), high latency (~1,200ms), and prone to non-deterministic JSON outputs.
+  - Large fine-tuned BERT (BERT-base-uncased): High GPU inference footprint (150ms on CPU, 450MB memory) that complicates local server execution.
 - **Tradeoff**:
-  - Requires maintaining domain disambiguation anchors alongside the intent configuration.
+  - The hybrid model requires initializing both TF-IDF vocabulary and embedding matrices on cold start (~2 seconds).
 
 ---
 
 ### Decision 6 — Historical Retrieval Vector Architecture & Evaluation Metrics
 
-- **Decision**: Index all 28,477 historical customer conversations from the Train split into a sublinear sparse-dense vector representation with intent-aware candidate reranking, response diversity deduplication, and automated `exclude_conv_id` masking.
+- **Decision**: Implement a sublinear sparse-dense TF-IDF vector retrieval engine over the 28,477 historical Train conversations, evaluated using Recall@1, Recall@3, Recall@5, MRR, and zero-leakage conversation ID exclusion.
 - **Why**:
-  1. Prevents self-retrieval and evaluation contamination by strictly enforcing `exclude_conv_id`.
-  2. Diverse deduplication prevents returning redundant canned responses (e.g. 5 identical "DM us" lines), ensuring the generator receives rich troubleshooting options.
-  3. Evaluated on the 200 Golden Set queries via Recall@1 (29.5%), Recall@3 (38.5%), Recall@5 (39.5%), and MRR (0.335), providing a factual benchmark rather than cosmetic claims.
+  1. Sublinear TF-IDF search (`retrieval_index.pkl`, 6.47MB) achieves sub-10ms retrieval latency on standard CPU without requiring external vector databases or heavyweight C++ dependencies.
+  2. Evaluated on all 200 Golden queries: Recall@1 = 28.5%, Recall@3 = 34.5%, Recall@5 = 36.5%, MRR = 0.3167, with zero data leakage.
+  3. `exclude_conv_id` masking guarantees that even if a query matches a historical conversation, the target interaction itself can never be returned as its own evidence.
 - **Alternatives Considered**:
-  - Un-reranked vector search: Returned near-duplicate generic DM tweets across all top-5 slots.
-  - Query-only retrieval without intent awareness: Suffered from lexical polysemy (e.g. "offline" matching both playback buffers and SD card storage).
+  - Heavy FAISS index with MiniLM embeddings: 120MB index size; slower build time without significant recall lift on noisy short tweets without fine-tuning.
+  - BM25 via Elasticsearch: Adds external daemon dependency.
 - **Tradeoff**:
-  - Because only ~22% of training cases have high-precision ground-truth intent labels (the rest being unlabelled historical threads), intent-level recall is strictly bounded by index label coverage.
+  - Sparse retrieval relies on vocabulary overlap; highly colloquial slang queries require n-gram tokenization to match.
 
 ---
 
@@ -101,23 +101,23 @@ This log documents key architectural, algorithmic, and methodological decisions 
 
 - **Decision**: Design the escalation engine with five deterministic safety gates (Sensitive Intent Gate, Severity Keyword Gate, Low Confidence / High Uncertainty Gate, Insufficient Evidence Gate, and Prompt Injection Defense), defaulting to `ESCALATE` whenever uncertainty arises.
 - **Why**:
-  1. In customer support operations, an unnecessary escalation (False Escalation) costs agent time (~$2-4/ticket), but a **False Auto-Handling** event (misleading a customer whose account is hacked or whose money was wrongfully charged) causes immediate churn, security breaches, chargebacks, and legal liability.
-  2. Rule-gated architecture provides explainability to non-technical reviewers: every escalation decision explicitly lists the trigger signal (e.g. sensitive financial intent, low retrieval score, or adversarial directive).
+  1. In customer support operations, an unnecessary escalation costs agent time (~$2-4/ticket), but a **False Auto-Handling** event (misleading a customer whose account is hacked or whose money was wrongfully charged) causes immediate churn, security breaches, chargebacks, and legal liability.
+  2. Rule-gated architecture provides explainability: every escalation decision explicitly lists the trigger signal.
+  3. The system achieves a **4.76% False Auto-Handling Rate** (40/42 escalations successfully caught), strictly meeting our chosen safety target of < 5.0%.
 - **Alternatives Considered**:
-  - Unconstrained LLM classification of "Should this escalate? Yes/No": High hallucination rate, non-deterministic, and prone to prompt injection exploits.
+  - Unconstrained LLM classification of "Should this escalate? Yes/No": High hallucination rate, non-deterministic, and vulnerable to prompt injection exploits.
   - Uniform confidence threshold alone: Ignored domain-specific sensitivity (e.g. confidently classifying a billing charge dispute as billing but failing to escalate it).
 - **Tradeoff**:
-  - Elevates human escalation rate slightly (~21% on Golden Set) in exchange for driving False Auto-Handling of sensitive/ambiguous complaints down to near zero.
+  - Elevates human escalation rate on noisy/ambiguous queries in exchange for driving False Auto-Handling of sensitive complaints down to near zero.
 
 ---
 
-### Decision 8 — Multi-Dimensional Reply Quality Rubric & Human Agreement Validation
+### Decision 8 — Multi-Dimensional Reply Quality Rubric
 
-- **Decision**: Define a 6-dimension evaluation rubric (Correctness, Groundedness, Relevance, Helpfulness, Brand Consistency, Safety) on a 1–5 scale with penalty criteria for hallucinated promises, validated through a 40-example human-vs-judge study yielding 90.4% exact match, 100% within-1-point agreement, Pearson $r=0.949$, and weighted $\kappa=0.868$.
+- **Decision**: Define a standardized 6-dimension evaluation rubric (Correctness, Groundedness, Relevance, Helpfulness, Brand Consistency, Safety) on a 1–5 integer scale with explicit penalty criteria for hallucinated promises or unverified claims.
 - **Why**:
   1. Automated evaluators often reward fluent prose even when the underlying advice is completely invented or dangerously inaccurate. Explicit penalty rules for unverified claims (e.g. invented refund amounts or deadline guarantees) ensure safety.
-  2. Grounding the judge with human calibration across easy, slang-heavy, and ambiguous interactions proves that the automated metric reflects real human support assessment rather than vanity numbers.
-  3. Provides an OpenAI API integration for live generation while supplying a deterministic fallback that allows offline, cost-free reproduction in any environment.
+  2. Standardized across both LLM-as-a-judge and human reviewers to enable direct inter-rater agreement measurement.
 - **Alternatives Considered**:
   - BLEU / ROUGE text overlap against historical agent tweets: Fundamentally flawed for customer support because multiple completely different phrasings can be equally valid and helpful.
   - Unstructured 1-10 single score: Lacks diagnostic granularity; conflates brand tone with factual correctness.
@@ -148,7 +148,7 @@ This log documents key architectural, algorithmic, and methodological decisions 
 - **Alternatives Considered**:
   - Relying solely on LLM system prompt instructions ("Do not follow user commands"): Known to be vulnerable to sophisticated jailbreaking.
 - **Tradeoff**:
-  - Extremely rare benign inquiries referencing the words "system instructions" might trigger a false escalation.
+  - Rare benign inquiries referencing the words "system instructions" might trigger a false escalation.
 
 ---
 
@@ -178,3 +178,58 @@ This log documents key architectural, algorithmic, and methodological decisions 
   - Requires maintaining separate backend and frontend runtimes during local testing.
 
 ---
+
+### Decision 13 — Complete Elimination of Synthetic Human Ratings in Favor of Real Manual Annotation
+
+- **Decision**: Purge all simulation logic from `evaluation/human_agreement.py` (`human_ratings = dict(judge_ratings) + noise`) and establish a genuine human annotation workflow storing manual ratings in `evaluation/human_annotations.csv`.
+- **Why**:
+  1. Generating synthetic human scores by adding random noise to an automated judge violates core scientific integrity.
+  2. The take-home assignment requires empirical evidence of human-vs-LLM agreement; reporting simulated data as human ratings is fundamentally dishonest.
+  3. The system now enforces a hard check: if real manual human ratings are not present, human agreement is reported as **Pending Manual Review** rather than manufacturing fake numbers.
+- **Alternatives Considered**:
+  - Synthetic user simulation with secondary LLM: Still generates model-to-model agreement, not human agreement.
+- **Tradeoff**:
+  - Requires human labor to review and rate the 40 sample cases; agreement metrics cannot be generated instantaneously without this manual input.
+
+---
+
+### Decision 14 — Strict Separation of Real LLM Judge from Offline Diagnostic Sanity Checks
+
+- **Decision**: Require `OPENAI_API_KEY` for the true LLM-as-a-Judge (`gpt-4o-mini`) in `evaluation/judge.py`, and strictly refuse to substitute deterministic heuristic fallback scores as "LLM judge" metrics.
+- **Why**:
+  1. Labeling a rule-based regex script as an "LLM-as-a-Judge" is deceptive.
+  2. When an API key is unconfigured, the suite honestly reports the LLM evaluation status as pending API configuration.
+  3. Offline heuristic rules are retained strictly as a diagnostic sanity check (`--offline-rubric`) that is visibly segregated from headline metrics.
+- **Alternatives Considered**:
+  - Silent fallback to heuristic judge: Common in prototypes, but causes reviewers to mistake rule-based outputs for generative model evaluation.
+- **Tradeoff**:
+  - Computing reply quality with the true LLM judge requires outbound API access and an active OpenAI API key.
+
+---
+
+### Decision 15 — Persistent Result Caching (`judge_outputs.json`) for LLM Evaluation
+
+- **Decision**: Implement a file-backed cache (`evaluation/judge_outputs.json`) that persists LLM judge scores and reasoning summaries indexed by `example_id` and `model`.
+- **Why**:
+  1. Prevents redundant API costs during iterative development.
+  2. Subsequent runs of `python -m evaluation.run` execute instantly by reusing cached evaluations.
+  3. Supports an explicit `--force-llm` flag or `FORCE_LLM_JUDGE=true` environment variable to bypass cache when re-evaluating modified prompts.
+- **Alternatives Considered**:
+  - In-memory caching: Lost upon script termination, requiring repeated API spends.
+  - Caching API keys: Prohibited under security rules; only model outputs and timestamps are persisted.
+- **Tradeoff**:
+  - If reply generation templates are modified, the cache must be invalidated with `--force-llm` to reflect the updated drafts.
+
+---
+
+### Decision 16 — Golden Set Provenance & Honest Verification Workflow
+
+- **Decision**: Expand `evaluation/golden_set.csv` schema with provenance tracking fields (`human_verified`, `verified_by`, `verified_at`), treating programmatic initial labels as **draft labels** until explicitly confirmed by a human reviewer.
+- **Why**:
+  1. Claiming a dataset is "100% hand-labelled" when it was initially created via programmatic keyword filters is misleading.
+  2. Transparent provenance fields ensure that only cases actually inspected and verified by a reviewer are marked as verified.
+  3. Accompanied by a standardized guide (`evaluation/GOLDEN_SET_GUIDE.md`) to guide consistent human labeling.
+- **Alternatives Considered**:
+  - Automatically setting `human_verified=True` for all rows: Deceptive.
+- **Tradeoff**:
+  - Verification of all 200 items requires approximately 1.5–2 hours of focused manual review.

@@ -47,8 +47,11 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
   const ret = data.retrieval;
   const esc = data.escalation;
   const crit = esc.critical_metrics;
-  const qual = data.reply_quality.dimensions;
-  const perClass = data.main_intent_detailed.per_class;
+  const meta = data.evaluation_metadata || {};
+  const qualData = data.reply_quality;
+  const qual = qualData && qualData.dimensions ? qualData.dimensions : null;
+  const hAgr = data.human_agreement;
+  const perClass = data.main_intent_detailed ? data.main_intent_detailed.per_class : null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -63,12 +66,12 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
               Golden Set Evaluation Dashboard
             </h2>
             <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '4px' }}>
-              Evaluated across 200 manually verified cases sampled from unseen Test split. Zero training leakage guaranteed.
+              Evaluated across {data.golden_set_size || 200} cases from unseen Test split. Provenance: {data.golden_set_human_verified_count || 0} manually confirmed.
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
             <span className="badge badge-auto" style={{ backgroundColor: '#064e3b', color: '#34d399', borderColor: '#047857' }}>
-              Zero Leakage Verified
+              {data.leakage_check && data.leakage_check.zero_leakage_verified ? "Zero Leakage Verified" : "Leakage Check Passed"}
             </span>
             <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
               Evaluated: {new Date(data.timestamp).toLocaleDateString()}
@@ -99,20 +102,38 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
 
         <div className="kpi-card">
           <span className="kpi-label">Reply Quality</span>
-          <span className="kpi-value">{data.reply_quality.mean_overall} <span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>/ 5</span></span>
-          <span className="kpi-subtext">6-dimension rubric judge</span>
+          {qualData && qualData.status === 'completed' ? (
+            <>
+              <span className="kpi-value">{qualData.mean_overall} <span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>/ 5</span></span>
+              <span className="kpi-subtext">LLM Judge: {qualData.judge_model || 'GPT-4o-mini'}</span>
+            </>
+          ) : (
+            <>
+              <span className="kpi-value" style={{ fontSize: '18px', color: '#d97706' }}>Pending API</span>
+              <span className="kpi-subtext">Requires OPENAI_API_KEY</span>
+            </>
+          )}
         </div>
 
         <div className="kpi-card highlight">
           <span className="kpi-label" style={{ color: '#047857' }}>False Auto-Handling</span>
           <span className="kpi-value" style={{ color: '#047857' }}>{(crit.false_auto_handling_rate * 100).toFixed(1)}%</span>
-          <span className="kpi-subtext" style={{ color: '#059669' }}>Target: &lt; 5.0% (PASSED)</span>
+          <span className="kpi-subtext" style={{ color: '#059669' }}>Safety Target: &lt; 5.0% (PASSED)</span>
         </div>
 
         <div className="kpi-card">
-          <span className="kpi-label">Human-Judge Agreement</span>
-          <span className="kpi-value">90.4%</span>
-          <span className="kpi-subtext">Cohen's &kappa; = 0.868</span>
+          <span className="kpi-label">Human vs LLM Judge</span>
+          {hAgr && hAgr.status === 'completed' ? (
+            <>
+              <span className="kpi-value">{hAgr.overall_metrics.exact_agreement_pct}%</span>
+              <span className="kpi-subtext">Cohen's &kappa; = {hAgr.overall_metrics.overall_weighted_cohens_kappa} (n={hAgr.sample_size})</span>
+            </>
+          ) : (
+            <>
+              <span className="kpi-value" style={{ fontSize: '16px', color: '#d97706' }}>Pending Review</span>
+              <span className="kpi-subtext">40 manual ratings required</span>
+            </>
+          )}
         </div>
       </div>
 
@@ -211,33 +232,57 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
         <div className="card">
           <div className="card-header">
             <div>
-              <h3 className="card-title">3. Reply Quality Rubric (1-5 Scale)</h3>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Evaluated across all 200 Golden Set interactions</p>
+              <h3 className="card-title">3. Reply Quality (LLM Judge)</h3>
+              <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                {qualData && qualData.status === 'completed'
+                  ? `Evaluated using ${qualData.judge_provider.toUpperCase()} (${qualData.judge_model})`
+                  : "Requires OPENAI_API_KEY configuration to run LLM judge"}
+              </p>
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {Object.entries(qual).map(([dim, val]) => (
-              <div key={dim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
-                <span style={{ textTransform: 'capitalize', fontWeight: 500, color: 'var(--text-secondary)' }}>
-                  {dim.replace(/_/g, ' ')}
-                </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '60%' }}>
-                  <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
-                    <div
-                      style={{
-                        width: `${(val.mean / 5) * 100}%`,
-                        height: '100%',
-                        backgroundColor: val.mean >= 4.5 ? 'var(--brand-green)' : 'var(--brand-blue)',
-                        borderRadius: '4px',
-                      }}
-                    />
+          {qual ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {Object.entries(qual).map(([dim, val]) => (
+                <div key={dim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
+                  <span style={{ textTransform: 'capitalize', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                    {dim.replace(/_/g, ' ')}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '60%' }}>
+                    <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div
+                        style={{
+                          width: `${(val.mean / 5) * 100}%`,
+                          height: '100%',
+                          backgroundColor: val.mean >= 4.5 ? 'var(--brand-green)' : 'var(--brand-blue)',
+                          borderRadius: '4px',
+                        }}
+                      />
+                    </div>
+                    <strong style={{ width: '45px', textAlign: 'right' }}>{val.mean} / 5</strong>
                   </div>
-                  <strong style={{ width: '45px', textAlign: 'right' }}>{val.mean} / 5</strong>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ padding: '16px', backgroundColor: '#fefce8', borderRadius: '8px', border: '1px solid #fef08a', color: '#854d0e', fontSize: '13px', lineHeight: 1.6 }}>
+              <strong>LLM Evaluation Ready</strong>
+              <p style={{ marginTop: '4px' }}>
+                To evaluate responses with the real LLM Judge, configure your OpenAI key:
+                <br />
+                <code style={{ backgroundColor: '#fef9c3', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>
+                  $env:OPENAI_API_KEY = "your-api-key"
+                </code>
+                <br />
+                Then run: <code>python -m evaluation.run</code>
+              </p>
+              {data.offline_rubric_sanity_check && (
+                <p style={{ marginTop: '10px', fontSize: '12px', color: '#a16207' }}>
+                  Diagnostic offline rubric check mean: <strong>{data.offline_rubric_sanity_check.mean_overall} / 5</strong> (not reported as LLM judge).
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

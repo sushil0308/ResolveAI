@@ -1,0 +1,642 @@
+[
+  {
+    "index": 1,
+    "example_id": "gold_042",
+    "difficulty": "easy",
+    "customer_message": "@user What about 99p a month for loyal customers who\u2019ve been premium since Spotify started?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hi there, help's here. Can you let us know the device, OS, and Spotify version you're using? We'll see what we can suggest /NY",
+      "@user Hey! There's some more info on Spotify Premium here: [URL] \ud83d\ude42 /M",
+      "@user Got it. In any case, we're still taking your feedback on board. Feel free to tweet us if there's anything else /GK",
+      "@user Hey! Can you DM us your account's email address and let us know which country you're in? We'll check things out /CX [URL]"
+    ]
+  },
+  {
+    "index": 2,
+    "example_id": "gold_170",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares I think someone else is using my Spotify? Found an artist and song saved that wasn't by me",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (12.8%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Got it! Our best tech folks are on the case as we speak. Hopefully we'll have a fix soon! /MX",
+      "@user Hey Ivan, that's not cool! Could you send us a DM with your account's email address or username? We'll take a look backstage /HC [URL]",
+      "@user Hey there! Can you tell us more about what's happening? We'll see what we can do to help /AY",
+      "@user Thanks. We'll get this reported. Great detective work! [URL] /DF"
+    ]
+  },
+  {
+    "index": 3,
+    "example_id": "gold_127",
+    "difficulty": "easy",
+    "customer_message": "@user is it possible to get a discount on Spotify Premium for Family by paying for a whole year all at once?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hey C\u00e9il\u00ed! Could you send us a DM with your account's email address or username? We'll take a look backstage /FR [URL]",
+      "@user Hey, help's here! Can you DM us your account's email address? We'll check things out for you /YM [URL]",
+      "@user Hi! We're afraid you'll need a credit/debit card to sign up for the student discount. We're passing on all feedback about this /MG",
+      "@user Hey! Can you give us a bit more info on what's going on? We'll do our best to help /CB"
+    ]
+  },
+  {
+    "index": 4,
+    "example_id": "gold_088",
+    "difficulty": "easy",
+    "customer_message": "@user you wanna explain why I\u2019m paying $9.99 a month for this? Also your desktop app crashes @user frequently [URL]",
+    "predicted_intent": "app_crash_performance",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (34.2%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey, help's here! Can you let us know the device, operating system, and Spotify version you're using? We'll see what we can suggest /RS",
+      "@user Hey Karen! We've just sent you a bit more info over DM. We'll carry on helping out there /JQ",
+      "@user It all boils down to licensing agreements, but we're doing our best to get it. We'll pass on your feedback to the right folks /RB",
+      "@user 2: make sure that the image you're sending doesn't contain your full 16-digit payment card number. We'll take a look backstage. /RA [URL]"
+    ]
+  },
+  {
+    "index": 5,
+    "example_id": "gold_070",
+    "difficulty": "easy",
+    "customer_message": "@user every time I try to reset password it says \"The CSRF token is invalid. Please try to resubmit the form.\"",
+    "predicted_intent": "account_security_access",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Account security breaches, password compromises, and account lockouts require confidential human identity verification backstage.",
+    "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
+    "retrieved_evidence": [
+      "@user Hey! Could you send us a DM with your account's email address and username, as well as a screenshot of the error? We'll take a look /RV [URL]",
+      "@user Hey there! Could you DM us your Spotify account's email address? We'll take a look under the hood /BH [URL]",
+      "@user Hi David! The cavalry's here. Can you DM us your account's email address and a screenshot of the exact error message you're getting? /AU [URL]",
+      "@user Hey Laura, help's here! Can you DM us your account's username and email address? We'll take a look backstage /MQ [URL]"
+    ]
+  },
+  {
+    "index": 6,
+    "example_id": "gold_149",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares hi! Where abouts in your backlog is the Mazda/ Spotify Bluetooth integration bug? [URL]",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hey! Make sure both your phone and external speaker are connected to the exact same Wi-Fi network. Restarting your router and re-pairing Bluetooth or Spotify Connect usually resolves connection hiccups /SC",
+    "retrieved_evidence": [
+      "@user Hi Courtney! Can you let us know the device, operating system, and Spotify version you're using? We'll see what we can suggest /GK",
+      "@user Hey David! Can you tell us more about what's happening? What device, operating system, and browser are you using? /AY",
+      "@user Hey Gerardo, help's here! Can you get back to us with your account's email address? We'll take a look backstage /JN",
+      "@user Could you try reinstalling your browsers? We'll be right here for your reply /MT"
+    ]
+  },
+  {
+    "index": 7,
+    "example_id": "gold_126",
+    "difficulty": "easy",
+    "customer_message": "@user having issues with trying to add family. the page is blank for me.",
+    "predicted_intent": "family_duo_plan",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (25.1%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey Tracy! Can you let us know what's happening exactly? We'll see how we can help /JP",
+      "@user Hey! Don\u2019t worry, we can help. What\u2019s happening exactly? Can you let us know the device/OS you\u2019re using? /RB",
+      "@user Hey Javier! Could you send us a DM with your account's email address or username? We'll take a look backstage /FR [URL]",
+      "@user Hey Rick! That's not cool. Can you DM us your account's email address? We'll see what we can suggest /MV [URL]"
+    ]
+  },
+  {
+    "index": 8,
+    "example_id": "gold_189",
+    "difficulty": "easy",
+    "customer_message": "What is Stranger Things mode @user and how do I know what playlists are compatible with this feature?",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (36.1%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi Quin. The Stranger Things Mode is an easter egg feature that adds some animation to your app. Hope you like it! /DR",
+      "@user Hey! The Stranger Things Mode is in partnership with Netflix to promote the latest season of Stranger Things. Hope this helps \ud83d\ude09 /GL",
+      "@user 1: Hey James! Good question. The \"Stranger Things Mode\" allows you to see the easter egg feature in the \"Now Playing\" view when streaming...",
+      "@user It should take you to the Upside Down \ud83d\ude09 Make sure it's enabled in your app's Settings tab, and see which Stranger Things character matches your music taste: [URL] /RR"
+    ]
+  },
+  {
+    "index": 9,
+    "example_id": "gold_178",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares hi its quite a while ago, but i removed a song from my playlist a long time ago, and i cant remember the name of the song, so maybe you could get it back for me? - Unknown<3",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hi! If a playlist went missing, you can often restore it by logging into your account page on spotify.com and clicking 'Recover playlists'. For local files, ensure both devices are on the exact same Wi-Fi network /SC",
+    "retrieved_evidence": [
+      "@user We're glad to hear everything's working now. Give us a shout if it starts misbehaving again; we're always here to help /RC",
+      "@user Gotcha! We'd recommend saving the tracks you like so you don't miss them out. Hope this helps /PL",
+      "@user Hey Joel, help's here! Can you DM us your account's email address? We'll check backstage /GK [URL]",
+      "@user Hi there, we'd love to lend a hand. Can you DM us your account's email address? We'll take a look backstage /AK [URL]"
+    ]
+  },
+  {
+    "index": 10,
+    "example_id": "gold_102",
+    "difficulty": "easy",
+    "customer_message": "@user how do I add to a collab playlist??? It\u2019s not letting me!!!",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hi! If a playlist went missing, you can often restore it by logging into your account page on spotify.com and clicking 'Recover playlists'. For local files, ensure both devices are on the exact same Wi-Fi network /SC",
+    "retrieved_evidence": [
+      "@user Hey Brittania! Our Curation team are independent & use taste, data, and trends to create playlists, but we\u2019ll pass on your suggestion /JP",
+      "@user Hi there! We\u2019ll have it available to you as soon as it\u2019s available to us. We have more info here: [URL] /NY",
+      "@user Hey there! We'd love to have them on Spotify. Hopefully we will in the future. Check this out: [URL] /AP",
+      "@user Hi Osm\u00edn! If you don\u2019t see it, the lyrics/story aren\u2019t currently available for that song. There's more here: [URL] \ud83d\ude42 /T"
+    ]
+  },
+  {
+    "index": 11,
+    "example_id": "gold_078",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares My username us kalie.filice the email is __email__",
+    "predicted_intent": "account_security_access",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Account security breaches, password compromises, and account lockouts require confidential human identity verification backstage.",
+    "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
+    "retrieved_evidence": [
+      "@user We'd recommend deleting your previous tweet as it contains personal information. Could you DM us instead? We'll keep on chatting there /TY [URL]",
+      "@user Hey Kevin! Can you DM us her account's email address? We'll take a look backstage /SY [URL]",
+      "@user Hey there! We'd recommend deleting your previous tweet as it contains private info. Could you DM it to us instead? /MT [URL]",
+      "@user Thanks! Could you also send us a DM? We'll carry on chatting there /JO [URL]"
+    ]
+  },
+  {
+    "index": 12,
+    "example_id": "gold_005",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares i want upgrade to premium but cant with Google Play Card balances?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hi Alice! Currently, all members of a Premium for Family plan must reside at the same address. We're passing on all feedback about this /MU",
+      "@user 1: Hey! We're afraid the student discount is only available for students in colleges/universities. If you have family members that...",
+      "@user Hi! We've just sent a DM your way. Let's carry on chatting there /DR",
+      "@user Hey Emily! Can you send us your account's username or email address via DM? We'll take a look backstage /PL [URL]"
+    ]
+  },
+  {
+    "index": 13,
+    "example_id": "gold_028",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares Thank you. Would be great to have a way you can do it without logging out and wiping all downloaded stuff.",
+    "predicted_intent": "offline_downloads",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (35.5%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user No worries! Let us know if there's anything else we can do for you /TF",
+      "@user [URL] You know where to find us if there's anything else /KM",
+      "@user You're welcome. Give us a shout if you have any other questions. We'll be happy to help /DV",
+      "@user You're welcome! Let us know if you ever need us again. We'd be... [URL] /AN"
+    ]
+  },
+  {
+    "index": 14,
+    "example_id": "gold_148",
+    "difficulty": "easy",
+    "customer_message": "@user Can't connect! Neither on Wi-Fi or Network data!",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (19.7%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Thanks for trying. Can you DM us your account's email address or username? We'll see what else we can suggest /DD [URL]",
+      "@user We understand. Can you DM us your account's username or email address? We'll check things backstage /MU [URL]",
+      "@user Thanks for the info. Best thing to try here is a clean reinstall. Just follow the exact steps at [URL] Keep us posted /RK",
+      "@user Yes, that's right. We'll also need you to DM us your account's username or email address. We'll see what else we can suggest /JM [URL]"
+    ]
+  },
+  {
+    "index": 15,
+    "example_id": "gold_062",
+    "difficulty": "easy",
+    "customer_message": "Since when does @SpotifyCares not allow username choice and/or changes?",
+    "predicted_intent": "playback_streaming_issue",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (11.2%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Got it, we hear you. We don't offer official support for Linux, but we'll be sure to pass your feedback to the relevant folks /TB",
+      "@user Could you try reinstalling the app? You can follow the steps here: [URL] /MT",
+      "@user We do our best! But sometimes agreements are ongoing, or can't be reached with the content provider /NQ",
+      "@user Hey Adrian! We're afraid this isn't currently possible. To help make it happen, add your support for the idea at [URL] /AR"
+    ]
+  },
+  {
+    "index": 16,
+    "example_id": "gold_147",
+    "difficulty": "easy",
+    "customer_message": "@user for iPhone X needs an update. Car Bluetooth isn\u2019t always sending song data and controls don\u2019t work.",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hey! Make sure both your phone and external speaker are connected to the exact same Wi-Fi network. Restarting your router and re-pairing Bluetooth or Spotify Connect usually resolves connection hiccups /SC",
+    "retrieved_evidence": [
+      "@user Hi, that doesn't sound right. Can you let us know the car model, device, and Spotify version you're using? We'll see what we can suggest /JE",
+      "@user Hey Luis! How's it going? Do you need help with anything? If so, let us know and we'll see what we can do /GU",
+      "@user 1: Hey! We hear you. Hopefully it'll be updated soon. Keep automatic downloads activated to get the latest update once it's available. /NQ",
+      "@user Thanks for the info. Our best tech folks are on the case as we speak. Hopefully we'll have a fix soon! /NS"
+    ]
+  },
+  {
+    "index": 17,
+    "example_id": "gold_029",
+    "difficulty": "easy",
+    "customer_message": "@SpotifyCares It won't even let me DOWNLOAD it now.",
+    "predicted_intent": "offline_downloads",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (23.0%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Sorry to hear that. We'd suggest getting in touch with UNiDAYS if your institution isn't being recognized. They'll be glad to help \ud83d\ude42 /AU",
+      "@user Hi Peter, help's here! Can you DM us your account's username, email address, and a screenshot of what you're seeing on your end? /TY [URL]",
+      "@user Hey Edris! Can you give us more info about what's happening? We'll see what we can suggest /KL",
+      "@user Hi Sloan, help's here! Could you DM us your email address and username? We'll take a closer look \ud83d\udd0d /JQ [URL]"
+    ]
+  },
+  {
+    "index": 18,
+    "example_id": "gold_184",
+    "difficulty": "easy",
+    "customer_message": "@user You know what would be cool? If users could search by lyrics. Real cool.",
+    "predicted_intent": "feedback_feature_request",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (32.7%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey Liza! We can see how that\u2019d be handy. Thanks for taking the time to reach out \u2013 your feedback's been noted \ud83d\udcdd /RE",
+      "@user Hey Mason! We'd love to have them on Spotify. Hopefully we will in the future. Check this out: [URL] /AN",
+      "@user Hey Jez, nice idea! It's definitely something for the team to consider and we'll make sure it reaches them. Stay awesome \ud83d\ude01 /DQ",
+      "@user Hi Kimmie! We're afraid we don't have any info on this right now, but we'll let the right team know it's something you'd like to see /NJ"
+    ]
+  },
+  {
+    "index": 19,
+    "example_id": "gold_020",
+    "difficulty": "easy",
+    "customer_message": "hey @user- please create a feature where i can play my playlists backwards. i can\u2019t be the only one who wants to listen to the newest stuff they\u2019ve added first and progress into the older tracks.",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (33.0%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi there! Thanks for the feedback. We'll be sure to let the right team know it's something you'd like to see \ud83d\ude42 /JI",
+      "@user Hey! Thanks for the idea. We'll be sure to let our team know this is something you'd like to see /CB",
+      "@user Hey there! Can you send us the Song Link? Just tap the three dots > Share > Copy Link. We'll check it out /NS",
+      "@user Got it. Can you DM us with your account's email address? Any screenshots of what you're seeing would also be helpful. We'll check it out /WW [URL]"
+    ]
+  },
+  {
+    "index": 20,
+    "example_id": "gold_066",
+    "difficulty": "easy",
+    "customer_message": "WTF I GOT INTO MY SPOTIFY THEN IT KICKS ME OUT SAYING WRONG PASSWORD?? @user help me bruhhh",
+    "predicted_intent": "account_security_access",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Account security breaches, password compromises, and account lockouts require confidential human identity verification backstage.",
+    "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
+    "retrieved_evidence": [
+      "@user Hey! We've sent you a DM. We'll carry on chatting there /LO",
+      "@user Hey there! What device, operating system, and Spotify version are you using? We'll see what we can suggest /RB",
+      "@user Hey there! We're here to help. Can you let us know what's happening exactly? We'll see what we can suggest /AN",
+      "@user Hey there. Taylor Swift's 'Reputation' isn't available to stream just yet \u2013 stay tuned! For now, check this out: [URL] /PC"
+    ]
+  },
+  {
+    "index": 21,
+    "example_id": "gold_131",
+    "difficulty": "short_noisy",
+    "customer_message": "@SpotifyCares anbody home??!!",
+    "predicted_intent": "family_duo_plan",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (16.2%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hmm. Could you DM us your account's username or email address? We'll take a look under the hood /JS [URL]",
+      "@user Alright. Can you try to update your Google Home settings? Just click here: [URL] Let us know how this plays out! /MS",
+      "@user Thanks. Can you double-check the app's Settings to see if \"Open Spotify automatically after you log into the computer\" is set to No? /MU",
+      "@user Can you DM us your account's username or email address? We'll check things backstage /MU [URL]"
+    ]
+  },
+  {
+    "index": 22,
+    "example_id": "gold_055",
+    "difficulty": "short_noisy",
+    "customer_message": "@user Can pay thorugh Maxis One?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hey there! Could you DM us your account's username or email address? We'll take a look under the hood /GU [URL]",
+      "@user Hey there! As long as you're logged in to your Spotify account, you can also stream on other devices. Hope this clears things up /AR",
+      "@user Hi there! Could you DM us with your account's username and email address? We'll see what we can suggest /WW [URL]",
+      "@user Hey there! The cavalry's here. Could you DM us your account's email address? We'll see what we can suggest /KB [URL]"
+    ]
+  },
+  {
+    "index": 23,
+    "example_id": "gold_011",
+    "difficulty": "short_noisy",
+    "customer_message": "Why @user playing up \ud83d\ude25",
+    "predicted_intent": "playback_streaming_issue",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (12.3%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey! Don\u2019t worry, we can help. What\u2019s happening exactly? Can you let us know the device/OS you\u2019re using? We'll see what we can suggest /GN",
+      "@user Hey there! Can you let us know what device, OS, and Spotify version you're running? Also, are you getting any specific error messages? /LM",
+      "@user Hey Roger, that's odd! Are you getting any errors when trying to play a song? Keep us posted /KL",
+      "@user Hey, that's not cool! What device and Spotify version are you using? We'll see what we can suggest /BH"
+    ]
+  },
+  {
+    "index": 24,
+    "example_id": "gold_054",
+    "difficulty": "short_noisy",
+    "customer_message": "@user refund ?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hey Pippin! Help's here. Can you DM us your account's email address or username? We'll take a look backstage /KM [URL]",
+      "@user Hey there! Can you DM us your account's email address? We'll take a look backstage /RB [URL]",
+      "@user Hey Adriana! Can you DM us your account's email address or username? We'll check backstage /AR [URL]",
+      "@user Hey Tony! We've just sent you a bit more info over DM. We'll carry on helping out there /GN"
+    ]
+  },
+  {
+    "index": 25,
+    "example_id": "gold_151",
+    "difficulty": "short_noisy",
+    "customer_message": "@user You work with Alexa, right??",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (14.4%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi! We're launching regularly in countries around the world. Sign up at [URL] to be the first to hear /RA",
+      "@user Hey there! We're launching in new countries as often as possible. Be sure to add your email at [URL] /GK",
+      "@user Hi there! Help's arrived. Can you DM us your account's email address or username? We'll take a look backstage /DD [URL]",
+      "@user Hey! Check out the official idea and add your vote to let our devs know it's something you'd like to see: [URL] /AR"
+    ]
+  },
+  {
+    "index": 26,
+    "example_id": "gold_091",
+    "difficulty": "short_noisy",
+    "customer_message": "I think my @user is glitch \ud83d\ude15",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (12.0%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi David! Thanks for the heads up. We've passed this info on to the right team and they'll fix it as soon as possible \ud83d\ude42 /SC",
+      "@user Hi Donald, help's here. Can you DM us your account's email address? We'll check under the hood /NY [URL]",
+      "@user Hey, is your Spotify misbehaving? Can you let us know what's happening exactly? We'll do our best to help out /MA",
+      "@user Hi there! Could you send us a DM with your account's email address? We'll take a look backstage /DR [URL]"
+    ]
+  },
+  {
+    "index": 27,
+    "example_id": "gold_012",
+    "difficulty": "short_noisy",
+    "customer_message": "@SpotifyCares Sonos Play:1",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hey! Make sure both your phone and external speaker are connected to the exact same Wi-Fi network. Restarting your router and re-pairing Bluetooth or Spotify Connect usually resolves connection hiccups /SC",
+    "retrieved_evidence": [
+      "@user Hey Andy! We've more got info on this at [URL] Any other questions, just give us a shout /RH",
+      "@user Can you DM us your account's email address? We'll take a look under the hood /QI [URL]",
+      "@user Hey Chris! Just to check, are you trying to play on your Echo and your phone/desktop at the same time? /JP",
+      "@user Hey Benjamin! Can you try logging out from your Sonos device? Let us know how it goes /PL"
+    ]
+  },
+  {
+    "index": 28,
+    "example_id": "gold_092",
+    "difficulty": "short_noisy",
+    "customer_message": "My @user keeps crashing ffs",
+    "predicted_intent": "app_crash_performance",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (41.5%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey Emily! That's not cool. Does logging out > restarting the device > logging back in help? Keep us posted /RV",
+      "@user Hey Stephen! That's not cool. What operating system and Spotify version are you running? We'll see what we can suggest /MV",
+      "@user Hey there! That doesn't sound good. Can you let us know the device, operating system, and app version you're using? /PB",
+      "@user Hey there! Can you give us more info about what's happening? We'll see what we can suggest /KL"
+    ]
+  },
+  {
+    "index": 29,
+    "example_id": "gold_051",
+    "difficulty": "short_noisy",
+    "customer_message": "@user Is this offer auto renew???",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hi there! You can find out more info about the student discount in Australia here: [URL] Hope that helps /NQ",
+      "@user Hi Ryan! You can buy Premium that's good for 12 months at [URL] Just select \"Start Spotify Premium\". Hope that helps /DD [URL]",
+      "@user Hey Mark. Thanks for the feedback \u2013 we appreciate it! We\u2019ll get this passed onto the right team \ud83d\udc9a /MO",
+      "@user Hey Jason! Check out the official idea and add your vote to let our devs know it's something you'd like to see: [URL] /MA"
+    ]
+  },
+  {
+    "index": 30,
+    "example_id": "gold_013",
+    "difficulty": "short_noisy",
+    "customer_message": "@user @user GIVE ME MY SKIPS BACK",
+    "predicted_intent": "playback_streaming_issue",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (40.5%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user We'd love to have them on Spotify! Hopefully we will in the future. Check this out: [URL] /SU",
+      "@user Hey there! We\u2019d love to have all of their stuff available, but we have some info about content here: [URL] /DD",
+      "@user Hey Gabriel! Is this what you're looking for: [URL] /GK",
+      "@user Hey! We hear you, but we\u2019ve got some info about mixtapes here: [URL] /MU"
+    ]
+  },
+  {
+    "index": 31,
+    "example_id": "gold_059",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares hi Spotify you've sent this link in an email to me to contact you so I'd thought I'd drop you a line. My premium account has been hacked and your customer service is nothing short of atrocious. I hope your night is going better than mine.",
+    "predicted_intent": "account_security_access",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Account security breaches, password compromises, and account lockouts require confidential human identity verification backstage.",
+    "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
+    "retrieved_evidence": [
+      "@user Hi! We've just replied to your DM. We'll carry on helping there /MQ",
+      "@user Hey there, help's here! Can you DM us your account's email address and username? We'll take a look backstage \ud83d\ude42 /CG [URL]",
+      "@user You can contact tunecore here: [URL] If you ever need anything else, just shout and we'll come running \ud83c\udfc3 /KL",
+      "@user Hey there! You can get in touch with us via email here: [URL] Hope that helps /NQ"
+    ]
+  },
+  {
+    "index": 32,
+    "example_id": "gold_156",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares I'm on Android (a Pixel specifically) and when I'm casting my phone's volume keys/media controls menus don't adjust the Chromecast volume like they used to (in or out of the actual Spotify app).",
+    "predicted_intent": "device_connectivity",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hey! Make sure both your phone and external speaker are connected to the exact same Wi-Fi network. Restarting your router and re-pairing Bluetooth or Spotify Connect usually resolves connection hiccups /SC",
+    "retrieved_evidence": [
+      "@user Thanks. Can you log out, restart your device, then log back in before checking one more time? /JU",
+      "@user Got it! We can see how that\u2019d be handy. Thanks for taking the time to reach out \u2013 your feedback's been noted \ud83d\udcdd /DF",
+      "@user We're always looking for ways to improve the app. For now, are you having some issues using it? Just let us know so we can help /AY",
+      "@user Sorry for the confusion. Sometimes content gets temporarily removed due to licensing changes. More info here: [URL] /FR"
+    ]
+  },
+  {
+    "index": 33,
+    "example_id": "gold_133",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@user @user @SpotifyCares Our family subscription got cancelled even though we verified our address a week ago. Can you tell us how to rectify this?",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hi! Are you getting any error messages when playing his music? Also, is this happening to all of his tracks, or just certain songs? /RE",
+      "@user Hey Hannah! This isn\u2019t possible right now, but we have more info about this on our Community. Check it out: [URL] /K",
+      "@user Hey Daniel! Can you DM us yours and your wife's accounts' email addresses or usernames? We'll take a look /NS [URL]",
+      "@user Hi there! We\u2019ll have it available to you as soon as it\u2019s available to us. More info here: [URL] /NY"
+    ]
+  },
+  {
+    "index": 34,
+    "example_id": "gold_196",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares It is due of one of my family member couldn't fill my complete address when he got invitation mail to apply Premium Family. Forgive me for my bad English. Thank you. My registered email is __email__",
+    "predicted_intent": "family_duo_plan",
+    "escalation_decision": "AUTO_HANDLE",
+    "escalation_reason": "The inquiry involves standard technical troubleshooting with high classification confidence and strong corroborating historical resolution precedent.",
+    "draft_reply": "Hey! All members must enter the exact same home address as the plan manager. We recommend accepting the invitation link in a private/incognito browser window so cookies don't interfere /SC",
+    "retrieved_evidence": [
+      "@user Hey there! We've just replied to your DM. We'll carry on helping out there \ud83d\ude42 /KM",
+      "@user Hey Patricia! Coudl you DM us the email addresses linked to your and your family member's accounts? We'll see what we can suggest /BH [URL]",
+      "@user We'd recommend deleting your previous tweet as it contains personal information. Could you DM us instead? We'll keep on chatting there /TY [URL]",
+      "@user Hi Jo, we've replied to your DM! We'll continue helping you out from there \ud83d\ude42 /DQ"
+    ]
+  },
+  {
+    "index": 35,
+    "example_id": "gold_075",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares Just signed up for premium during the 99 cent/three month trial. However my username is not right. I know I need to close the account and basically start over, but can I do this while keeping the trial going? Thanks!",
+    "predicted_intent": "subscription_billing",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Financial charges, refund requests, and recurring billing disputes require human review of billing accounts and payment processors.",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "retrieved_evidence": [
+      "@user Hey Ben, help's arrived! Could you DM us your email and username of your account? We'll take a look backstage \ud83d\udd0d /JQ [URL]",
+      "@user Hi David! Sorry to hear that. Can you DM us your account's username or email address? We'll see what we can suggest /MU [URL]",
+      "@user Hey Shiela! Can you DM us your account's email address? We'll take a look backstage /MG [URL]",
+      "@user Hey there! The cavalry's here. Could you fire over your daughter's email address or username, as well as yours? We'll check backstage /KB"
+    ]
+  },
+  {
+    "index": 36,
+    "example_id": "gold_199",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "dear @SpotifyCares could you PLEASE PLEASE add \"Independent\" by Uppermost to Spotify itself, thank you so much if you do that.",
+    "predicted_intent": "playlist_library_management",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (12.8%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hey! We\u2019ve got some info about mixtapes here: [URL] /TB",
+      "@user Hey! Discover Weekly is based on what you, and others like you, are listening to. Hopefully it\u2019s more in tune with your tastes next week /AR",
+      "@user Hey there! Just to check, can you let us know the iPhone model you're using along with its iOS and Spotify versions? /MT",
+      "@user Hey there! This isn't possible right now, but you can show your support for the idea on our Community: [URL] /KL"
+    ]
+  },
+  {
+    "index": 37,
+    "example_id": "gold_113",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "something weird is happening with my @user mobile app. every time I switch playlists, my music randomly pauses itself 1min 46sec into the first song. what does this even mean?",
+    "predicted_intent": "playback_streaming_issue",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (20.4%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi there! Just tap Your Library > avatar icon (not the gear icon). Hope this helps /MU",
+      "@user Hey! That doesn't sound right. Can you let us know the device, OS, and Spotify version you're running? We'll see what we can suggest /KM",
+      "@user Hi Vaint! Can you let us know the device, OS, and Spotify version you're rocking? /QI",
+      "@user @user Hey, help's here! Can you let us know the device, OS, and Spotify version you're running? We'll see what we can suggest /DB"
+    ]
+  },
+  {
+    "index": 38,
+    "example_id": "gold_112",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares Is it possible to play music ONLY from my library of local file songs I brought on the Google Home? I really want to know this before I sign up for a Spotify account",
+    "predicted_intent": "family_duo_plan",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (15.8%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Alright. Can you try to update your Google Home settings? Just click here: [URL] Let us know how this plays out! /MS",
+      "@user Hi Nick! This isn't possible right now, but we'll make sure to let the team know that this is something you'd like to see /CX",
+      "@user Hey James! Can you tell us what\u2019s happening exactly? We'll see what we can do to help \ud83d\ude42 /MS",
+      "@user Hi there! We suggest removing the track from your folder then sync it again. Keep us in the loop /JM"
+    ]
+  },
+  {
+    "index": 39,
+    "example_id": "gold_135",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares Hey Guys, I love Spotify and I\u2019m a premium member paying monthly, do you have any family deals? I have 3 brothers who all use Spotify premium but can\u2019t get a deal to save money as we all live within different postcodes/addresses, any way you can help?",
+    "predicted_intent": "family_duo_plan",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "The customer's inquiry is ambiguous or classification confidence is low (24.7%); escalated to a human agent to avoid misleading automated guidance.",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "retrieved_evidence": [
+      "@user Hi there! We don't have any info on this right now, but we'll let the right team know it's something you'd like to see /NQ",
+      "@user Thanks for the info. Can you DM us your account's email address or username? We'll take a look backstage /RH [URL]",
+      "@user Our Curation team are independent so there's no formal submission process. Check out [URL] to help you gain visibility /BB",
+      "@user Hi there! Just send it over, and we'd be happy to answer your question. /NQ"
+    ]
+  },
+  {
+    "index": 40,
+    "example_id": "gold_077",
+    "difficulty": "ambiguous_edge",
+    "customer_message": "@SpotifyCares I was logged out of my account and then after repeatedly entering the correct info,i decided to reset my password. I went on the page, clicked send email link but everytime i do it says\u201dthe CSRF token is invalid. Please resubmit the form\u201d Please respond soon",
+    "predicted_intent": "account_security_access",
+    "escalation_decision": "ESCALATE",
+    "escalation_reason": "Account security breaches, password compromises, and account lockouts require confidential human identity verification backstage.",
+    "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
+    "retrieved_evidence": [
+      "@user Hi there! We've just sent a DM your way. Let's carry on chatting there /FR",
+      "@user Hey! Could you send us a DM with your account's email address and username, as well as a screenshot of the error? We'll take a look /RV [URL]",
+      "@user Hi, help's here! Could you DM us your email address and username? We'll do some digging \ud83d\udd0d /JQ [URL]",
+      "@user Hey! Can you DM us your account's email address? We'll see what we can suggest /CB [URL]"
+    ]
+  }
+]
