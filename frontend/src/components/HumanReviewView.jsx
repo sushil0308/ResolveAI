@@ -127,7 +127,7 @@ export default function HumanReviewView({ apiBaseUrl = "http://localhost:8000" }
       const res = await fetch(`${apiBaseUrl}/api/review/annotations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: json.stringify(payload),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
