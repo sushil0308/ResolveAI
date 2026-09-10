@@ -82,6 +82,13 @@ body {
   align-items: center;
   gap: 12px;
   border-bottom: 1px solid var(--sidebar-border);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.sidebar-brand:hover {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .sidebar-logo {
@@ -95,6 +102,12 @@ body {
   font-weight: 700;
   font-size: 18px;
   color: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sidebar-brand:hover .sidebar-logo {
+  transform: scale(1.06);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
 }
 
 .sidebar-title {

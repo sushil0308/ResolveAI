@@ -54,7 +54,19 @@ export default function App() {
     <div className="app-container">
       {/* Sidebar Navigation */}
       <aside className="sidebar">
-        <div className="sidebar-brand">
+        <div
+          className="sidebar-brand"
+          onClick={() => setActiveTab("agent")}
+          role="button"
+          tabIndex={0}
+          title="Return to Agent Copilot (Home)"
+          style={{ cursor: "pointer" }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              setActiveTab("agent");
+            }
+          }}
+        >
           <div className="sidebar-logo">R</div>
           <div>
             <div className="sidebar-title">ResolveAI Copilot</div>
