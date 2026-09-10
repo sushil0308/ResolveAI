@@ -105,12 +105,12 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
           {qualData && qualData.status === 'completed' ? (
             <>
               <span className="kpi-value">{qualData.mean_overall} <span style={{ fontSize: '16px', color: 'var(--text-muted)' }}>/ 5</span></span>
-              <span className="kpi-subtext">LLM Judge: {qualData.judge_model || 'GPT-4o-mini'}</span>
+              <span className="kpi-subtext">LLM Judge: {qualData.judge_model || 'gemini-3.7-flash'}</span>
             </>
           ) : (
             <>
               <span className="kpi-value" style={{ fontSize: '18px', color: '#d97706' }}>Pending API</span>
-              <span className="kpi-subtext">Requires OPENAI_API_KEY</span>
+              <span className="kpi-subtext">Requires GEMINI_API_KEY</span>
             </>
           )}
         </div>
@@ -122,7 +122,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
         </div>
 
         <div className="kpi-card">
-          <span className="kpi-label">Human reviewer vs LLM judge</span>
+          <span className="kpi-label">Human reviewer vs Gemini LLM judge</span>
           {hAgr && hAgr.status === 'completed' && hAgr.overall_metrics ? (
             <>
               <span className="kpi-value">{hAgr.overall_metrics.exact_agreement_pct}%</span>
@@ -131,10 +131,10 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
           ) : (
             <>
               <span className="kpi-value" style={{ fontSize: '15px', color: '#d97706' }}>
-                {data.human_annotation_status === 'complete' ? '40 Rated (Pending LLM)' : 'Pending Review'}
+                {data.human_annotation_status === 'complete' ? '40 Rated (Pending Gemini LLM)' : 'Pending Review'}
               </span>
               <span className="kpi-subtext">
-                {data.human_annotation_status === 'complete' ? 'Run with OPENAI_API_KEY' : '40 manual ratings required'}
+                {data.human_annotation_status === 'complete' ? 'Run with GEMINI_API_KEY' : '40 manual ratings required'}
               </span>
             </>
           )}
@@ -240,7 +240,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
               <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 {qualData && qualData.status === 'completed'
                   ? `Evaluated using ${qualData.judge_provider.toUpperCase()} (${qualData.judge_model})`
-                  : "Requires OPENAI_API_KEY configuration to run LLM judge"}
+                  : "Requires GEMINI_API_KEY configuration to run LLM judge"}
               </p>
             </div>
           </div>
@@ -272,10 +272,10 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
             <div style={{ padding: '16px', backgroundColor: '#fefce8', borderRadius: '8px', border: '1px solid #fef08a', color: '#854d0e', fontSize: '13px', lineHeight: 1.6 }}>
               <strong>LLM Evaluation Ready</strong>
               <p style={{ marginTop: '4px' }}>
-                To evaluate responses with the real LLM Judge, configure your OpenAI key:
+                To evaluate responses with the real LLM Judge, configure your Gemini key in .env:
                 <br />
                 <code style={{ backgroundColor: '#fef9c3', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>
-                  $env:OPENAI_API_KEY = "your-api-key"
+                  GEMINI_API_KEY=&lt;key&gt;
                 </code>
                 <br />
                 Then run: <code>python -m evaluation.run</code>

@@ -121,20 +121,19 @@ The 200-case Golden Evaluation Set (`evaluation/golden_set.csv`) is a **curated 
 
 ## Reply Quality & Human Agreement Protocol
 
-### LLM-as-a-Judge (`gpt-4o-mini`)
-Reply quality is evaluated using a genuine LLM-as-a-Judge powered by the OpenAI API (default: `gpt-4o-mini`, configurable via `LLM_JUDGE_MODEL`).
-- Evaluates across 6 standardized dimensions (1–5 scale): **Correctness, Groundedness, Relevance, Helpfulness, Brand Consistency, Safety**.
+### LLM-as-a-Judge (Google Gemini 3.7 Flash)
+Reply quality is evaluated using a genuine LLM-as-a-Judge powered by Google Gemini (model: `gemini-3.7-flash`, configurable via `GEMINI_MODEL`).
+- **Rubric Dimensions**: Evaluates across 6 standardized dimensions (1–5 scale): **Correctness, Groundedness, Relevance, Helpfulness, Brand Consistency, Safety**.
 - **Prompt Injection Boundary**: Customer tweets and historical evidence are treated strictly as untrusted text data that cannot override evaluation rules.
-- **Persistent Caching**: Cached in `evaluation/judge_outputs.json` to eliminate redundant API expenditures.
-- **Separation of Heuristics**: If `OPENAI_API_KEY` is not set, LLM evaluation status is reported as pending; deterministic heuristics (`--offline-rubric`) are strictly segregated as diagnostic checks and are never reported as LLM judge scores.
+- **Persistent Caching**: Cached in `evaluation/judge_outputs.json` by example ID and model to eliminate redundant API calls.
+- **Strict Integrity Rules**: If `GEMINI_API_KEY` is not configured or an API error occurs, LLM evaluation halts without synthetic substitution; deterministic heuristics (`--offline-rubric`) are segregated strictly as diagnostic checks and are never reported as LLM judge scores.
 
 ### Manual Human Annotation & Agreement
 Unlike systems that manufacture synthetic human ratings with noise, ResolveAI enforces a genuine human review protocol:
-1. **Sample Selection**: 40 representative customer interactions sampled across Easy (20), Short/Noisy (10), and Ambiguous/Edge (10) tiers.
-2. **Single-Blind Rating**: Reviewers rate interactions through the dedicated **Human Review UI** (`/review`) without seeing model scores, confidence, or automated judgments.
-3. **Storage**: Real manual ratings are stored in `evaluation/human_annotations.csv` (100% complete, 40/40 rated).
-4. **Purged Simulation Numbers**: Previous simulated human agreement numbers (90.42% exact agreement, $\kappa = 0.8677$) have been completely purged from the repository.
-5. **Agreement Calculation**: `python -m evaluation.human_agreement` compares the 40 real human annotations directly against cached LLM judge ratings, computing Exact Agreement %, Within-1-Point %, Pearson $r$, and quadratic weighted Cohen's $\kappa$. Detailed report in [`reports/human_agreement_report.md`](reports/human_agreement_report.md).
+- **Human Evaluation Sample**: 40 manually rated examples by one human reviewer across Easy (20), Short/Noisy (10), and Ambiguous/Edge (10) tiers.
+- **Single-Blind Protocol**: The reviewer rates interactions through the dedicated **Human Review UI** (`/review`) without viewing model confidence, automated judge scores, or ground-truth labels.
+- **Data Integrity**: Real manual ratings are preserved in `evaluation/human_annotations.csv` (100% complete, 40/40 rated).
+- **Zero Simulation**: All simulated human agreement numbers have been purged. Human agreement analysis (`python -m evaluation.human_agreement`) evaluates empirical inter-rater agreement against real LLM judge outputs without fabrication.
 
 ---
 
@@ -221,15 +220,11 @@ source .venv/bin/activate  # On Windows PowerShell: .venv\Scripts\Activate.ps1
 pip install -r backend/requirements.txt
 ```
 
-### 2. Configure Environment (Optional for LLM Judge)
+### 2. Configure Environment (for Gemini LLM Judge)
 ```bash
-# On Linux/macOS:
-export OPENAI_API_KEY="your-api-key-here"
-export LLM_JUDGE_MODEL="gpt-4o-mini"
-
-# On Windows PowerShell:
-$env:OPENAI_API_KEY = "your-api-key-here"
-$env:LLM_JUDGE_MODEL = "gpt-4o-mini"
+# Add to your local .env file (or set in environment):
+GEMINI_API_KEY="your-google-ai-studio-api-key"
+GEMINI_MODEL="gemini-3.7-flash"
 ```
 
 ### 3. Run Data Pipeline & Unified Evaluation Suite

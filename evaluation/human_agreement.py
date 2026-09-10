@@ -136,8 +136,8 @@ def load_llm_judge_scores(example_ids: List[str]) -> Dict[str, Dict[str, int]]:
     if not os.path.exists(JUDGE_OUTPUTS_PATH):
         raise FileNotFoundError(
             f"LLM judge outputs not found at '{JUDGE_OUTPUTS_PATH}'.\n"
-            "Please run the LLM evaluation (python -m evaluation.run) with OPENAI_API_KEY set "
-            "to generate real LLM judge evaluations first."
+            "Please run the LLM evaluation (python -m evaluation.run) with GEMINI_API_KEY set "
+            "to generate real Gemini LLM judge evaluations first."
         )
 
     with open(JUDGE_OUTPUTS_PATH, "r", encoding="utf-8") as f:
@@ -266,7 +266,9 @@ def calculate_agreement(
         "sample_size": len(df_human),
         "number_of_human_reviewers": 1,
         "reviewer_type": "manual human reviewer",
-        "judge_type": "LLM judge (OpenAI)",
+        "judge_type": "LLM judge (Google Gemini - gemini-3.7-flash)",
+        "judge_provider": "google",
+        "judge_model": "gemini-3.7-flash",
         "evaluation_protocol": "Independent blind manual annotation (reviewer blinded to LLM scores)",
         "overall_metrics": {
             "exact_agreement_pct": overall_exact,

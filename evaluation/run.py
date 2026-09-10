@@ -6,8 +6,9 @@ Executes rigorous, scientifically honest evaluation across five segregated stage
 1. Intent Classification Evaluation (Baselines vs Main System)
 2. Historical Case Retrieval Evaluation (Recall@1, Recall@3, Recall@5, MRR)
 3. Escalation Safety Evaluation (False Auto-Handling Rate, Precision, Recall, F1)
-4. LLM Reply-Quality Evaluation (Genuine LLM-as-a-Judge with OpenAI API)
-   * If OPENAI_API_KEY is missing, stops LLM evaluation with clear instructions.
+4. LLM Reply-Quality Evaluation (Genuine LLM-as-a-Judge with Google Gemini API)
+   * If GEMINI_API_KEY is missing, stops LLM evaluation with clear instructions.
+   * Caches evaluation results in evaluation/judge_outputs.json.
    * Optional diagnostic: --offline-rubric (strictly segregated from headline metrics).
 5. Human-vs-LLM Agreement (Consumes ONLY real manual ratings from evaluation/human_annotations.csv).
 """
@@ -272,32 +273,35 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
     # -------------------------------------------------------------
     # Stage E: LLM Reply-Quality Evaluation (Genuine LLM Judge)
     # -------------------------------------------------------------
-    judge_model_used: str = os.environ.get("LLM_JUDGE_MODEL", "gpt-4o-mini")
-    print("\n--- [Stage E] Evaluating Reply Quality with LLM Judge ---")
-    print("Using LLM judge")
-    print("Provider: OpenAI")
-    print(f"Model: {judge_model_used}")
-
     dimensions = ["correctness", "groundedness", "relevance", "helpfulness", "brand_consistency", "safety_unsupported_claims"]
     llm_judge = LLMReplyQualityJudge(force_refresh=force_llm)
+
+    judge_provider = getattr(llm_judge, "provider_display", "Google Gemini")
+    judge_provider_slug = getattr(llm_judge, "provider", "google")
+    judge_model_used = getattr(llm_judge, "model", "gemini-3.7-flash")
+
+    print("\n--- [Stage E] Evaluating Reply Quality with LLM Judge ---")
+    print("Using LLM judge")
+    print(f"Provider: {judge_provider}")
+    print(f"Model: {judge_model_used}")
 
     reply_quality_results: Optional[Dict[str, Any]] = None
     judge_status: str = "unconfigured"
 
     if not llm_judge.is_configured():
-        print("  [ERROR] OPENAI_API_KEY environment variable is not configured in environment or .env.")
+        print("  [ERROR] GEMINI_API_KEY environment variable is not configured in environment or .env.")
         print("  Stopping LLM-based reply-quality evaluation.")
         print("  Per evaluation integrity rules, heuristic fallback is NOT reported as LLM judge.")
         judge_status = "pending_api_key"
         reply_quality_results = {
             "status": "pending_api_key",
             "judge_type": "llm",
-            "judge_provider": "openai",
+            "judge_provider": judge_provider_slug,
             "judge_model": judge_model_used,
-            "message": "Configure OPENAI_API_KEY in .env to run the genuine LLM judge.",
+            "message": "Configure GEMINI_API_KEY in .env to run the genuine Gemini judge.",
         }
     else:
-        print(f"  OpenAI API key detected. Evaluating replies using {judge_model_used}...")
+        print(f"  {judge_provider} API key detected. Evaluating replies using {judge_model_used}...")
         dim_scores = {d: [] for d in dimensions}
         judge_records = []
         cached_hits = 0
@@ -305,6 +309,8 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
 
         for idx, row in df_gold.iterrows():
             ex_id = row["example_id"]
+            if (idx + 1) % 5 == 0 or idx == 0 or idx == len(df_gold) - 1:
+                print(f"  [LLM Judge] Evaluating case {idx + 1}/{len(df_gold)} ({ex_id})...", flush=True)
             msg = row["customer_message"]
             intent = main_intent_preds[idx]
             reply = agent_replies[idx]
@@ -321,7 +327,7 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
                     escalation_decision=decision,
                 )
             except Exception as e:
-                print(f"  [API ERROR] OpenAI API call failed for {ex_id}: {e}")
+                print(f"  [API ERROR] {judge_provider} API call failed for {ex_id}: {e}")
                 print("  Stopping LLM-based reply-quality evaluation.")
                 print("  Per evaluation integrity rules, heuristic fallback is NOT reported as LLM judge.")
                 judge_status = "api_error"
@@ -329,7 +335,7 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
                     "status": "api_error",
                     "error": str(e),
                     "judge_type": "llm",
-                    "judge_provider": "openai",
+                    "judge_provider": judge_provider_slug,
                     "judge_model": judge_model_used,
                 }
                 api_failed = True
@@ -362,7 +368,7 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
             reply_quality_results = {
                 "status": "completed",
                 "judge_type": "llm",
-                "judge_provider": "openai",
+                "judge_provider": judge_provider_slug,
                 "judge_model": judge_model_used,
                 "cached_evaluations_reused": cached_hits,
                 "mean_overall": round(float(np.mean(overall_all)), 2),
@@ -464,17 +470,17 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
         "human_sample_size": valid_human_count,
         "human_annotation_status": "complete" if valid_human_count >= 40 else "pending",
         "judge_type": "llm",
-        "judge_provider": "openai",
+        "judge_provider": judge_provider_slug,
         "judge_model": judge_model_used,
-        "judge_mode": "api" if judge_status == "completed" else "pending_api_key",
+        "judge_mode": "api" if llm_judge.is_configured() else "pending_api_key",
         "judge_status": judge_status,
         "execution_time_seconds": duration_s,
         "leakage_check": leakage_metrics,
         "evaluation_metadata": {
             "judge_type": "llm",
-            "judge_provider": "openai",
+            "judge_provider": judge_provider_slug,
             "judge_model": judge_model_used,
-            "judge_mode": "api" if judge_status == "completed" else "pending_api_key",
+            "judge_mode": "api" if llm_judge.is_configured() else "pending_api_key",
             "judge_status": judge_status,
             "human_annotation_status": "complete" if valid_human_count >= 40 else "pending",
             "human_sample_size": valid_human_count,
@@ -597,10 +603,17 @@ Evaluated against the 28,477-case historical vector index (isolated to Train spl
 | **Safety / Unsupported Claims** | **{qdims['safety_unsupported_claims']['mean']} / 5** | {qdims['safety_unsupported_claims']['median']} | {qdims['safety_unsupported_claims']['std']} | Strict zero-tolerance for fake refunds/credits |
 | **Overall Mean Quality** | **{qual['mean_overall']} / 5** | - | - | Holistic response quality index |
 """
+    elif qual and qual.get("status") == "api_error":
+        md += f"""
+> **LLM Judge Status**: Halted due to Gemini API limit/error.  
+> **Provider**: {qual.get('judge_provider', 'google').upper()} ({qual.get('judge_model', 'gemini-3.7-flash')})  
+> **Notice**: Evaluation halted cleanly without synthetic fallback per scientific integrity rules.  
+> *Error Details*: `{qual.get('error', 'API error')[:200]}...`
+"""
     else:
         md += """
-> **LLM Judge Status**: Pending OpenAI API Key Configuration.  
-> Configure `OPENAI_API_KEY` to run the true LLM judge across all 200 interactions.  
+> **LLM Judge Status**: Pending Gemini API Key Configuration.  
+> Configure `GEMINI_API_KEY` in `.env` to run the true Gemini LLM judge across all 200 interactions.  
 > *Note: In accordance with evaluation integrity rules, offline heuristics are never substituted for LLM judge scores.*
 """
 

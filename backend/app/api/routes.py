@@ -65,7 +65,19 @@ def get_evaluation_summary():
     if not os.path.exists(RESULTS_JSON_PATH):
         raise HTTPException(status_code=404, detail="Evaluation results not found. Run python -m evaluation.run first.")
     with open(RESULTS_JSON_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    # If judge_agreement_results.json exists and has completed results, ensure human_agreement is current
+    agreement_path = os.path.join("evaluation", "judge_agreement_results.json")
+    if os.path.exists(agreement_path):
+        try:
+            with open(agreement_path, "r", encoding="utf-8") as f_agr:
+                agr_data = json.load(f_agr)
+                if agr_data.get("status") == "completed":
+                    data["human_agreement"] = agr_data
+        except Exception:
+            pass
+    return data
 
 
 @router.get("/evaluation/intents")

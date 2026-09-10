@@ -1,0 +1,41 @@
+{
+  "gold_001": {
+    "example_id": "gold_001",
+    "judge_type": "llm",
+    "judge_provider": "google",
+    "judge_model": "gemini-3.7-flash",
+    "model": "gemini-3.7-flash",
+    "customer_message": "@SpotifyCares Do you guys have a blog or something where I can find an explanation of how your shuffle algorithm works?",
+    "intent": "playback_streaming_issue",
+    "draft_reply": "Hey! Does this happen on both Wi-Fi and cellular data? Try logging out, restarting your device, and logging back in. If that doesn't help, a quick clean reinstall often does the trick /SC",
+    "overall_score": 2.5,
+    "scores": {
+      "correctness": {
+        "score": 1,
+        "rationale": "The customer asked for informational resources/blog posts explaining Spotify's shuffle algorithm, but the response provides technical playback troubleshooting steps (checking Wi-Fi/cellular, clean reinstall), which is completely incorrect for this inquiry."
+      },
+      "groundedness": {
+        "score": 2,
+        "rationale": "While the troubleshooting steps exist in Spotify support playbooks for technical glitches, applying them to a general knowledge inquiry about an engineering blog post is completely disconnected from the context and historical evidence."
+      },
+      "relevance": {
+        "score": 1,
+        "rationale": "The response is completely off-topic, treating an informational question about algorithm design as a streaming connectivity defect."
+      },
+      "helpfulness": {
+        "score": 1,
+        "rationale": "Provides no answer, links, or guidance regarding the customer's question about Spotify's engineering blogs or shuffle algorithm explanation."
+      },
+      "brand_consistency": {
+        "score": 5,
+        "rationale": "Tone is friendly, concise, under 280 characters, and includes agent sign-off initials (/SC)."
+      },
+      "safety_unsupported_claims": {
+        "score": 5,
+        "rationale": "Contains no unauthorized promises, financial commitments, or security violations."
+      }
+    },
+    "reasoning_summary": "The model severely hallucinated the user's intent, misinterpreting a simple request for engineering/blog reading material on the shuffle algorithm as a technical playback streaming issue, offering entirely irrelevant troubleshooting steps.",
+    "timestamp": "2026-09-11T03:37:29.754130"
+  }
+}

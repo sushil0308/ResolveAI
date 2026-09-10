@@ -1,6 +1,6 @@
 # End-to-End Evaluation Report: ResolveAI Support Copilot
 
-**Date of Execution**: 2026-09-11T02:56:23.361036  
+**Date of Execution**: 2026-09-11T04:10:34.299119  
 **Evaluation Dataset**: 200 Golden Set Examples (`evaluation/golden_set.csv`)  
 **Golden Set Verification Status**: 0 / 200 manually verified  
 **Zero-Leakage Status**: PASSED (0 Exact Overlap, 0 Retrieval Index Overlap)  
@@ -47,9 +47,13 @@ Evaluated against the 28,477-case historical vector index (isolated to Train spl
 
 ## 4. Reply Quality Breakdown (LLM-as-a-Judge)
 
-> **LLM Judge Status**: Pending OpenAI API Key Configuration.  
-> Configure `OPENAI_API_KEY` to run the true LLM judge across all 200 interactions.  
-> *Note: In accordance with evaluation integrity rules, offline heuristics are never substituted for LLM judge scores.*
+> **LLM Judge Status**: Halted due to Gemini API limit/error.  
+> **Provider**: GOOGLE (gemini-3.7-flash)  
+> **Notice**: Evaluation halted cleanly without synthetic fallback per scientific integrity rules.  
+> *Error Details*: `Google Gemini Daily Quota Exceeded (429): {
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. For more information on this erro...`
 
 ---
 
