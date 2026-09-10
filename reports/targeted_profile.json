@@ -1,0 +1,62 @@
+{
+  "SpotifyCares": {
+    "total_brand_tweets": 43265,
+    "matched_pairs_count": 43092,
+    "sample_pairs": [
+      {
+        "brand_tweet_id": 848,
+        "cust_tweet_id": 850.0,
+        "customer_text": "@SpotifyCares Premium &amp; when i\ufe0f have it on shuffle it turns off when the song is done and just plays in order and the repeat lights up but doesn\u2019t repeat",
+        "brand_text": "@115887 Hmm. Can you try restarting your device by holding the Sleep/Wake + Volume Down buttons for 10 seconds? Keep us posted /LS",
+        "cust_time": "Tue Oct 31 21:41:37 +0000 2017",
+        "brand_time": "Tue Oct 31 22:28:16 +0000 2017"
+      },
+      {
+        "brand_tweet_id": 851,
+        "cust_tweet_id": 849.0,
+        "customer_text": "@SpotifyCares doesn\u2019t work and i even tried deleting the app",
+        "brand_text": "@115887 Could you send us a DM with your account's email address? We'll take a look backstage /CH https://t.co/ldFdZRiNAt",
+        "cust_time": "Tue Oct 31 23:36:20 +0000 2017",
+        "brand_time": "Tue Oct 31 23:39:03 +0000 2017"
+      },
+      {
+        "brand_tweet_id": 852,
+        "cust_tweet_id": 853.0,
+        "customer_text": "@SpotifyCares iphone 7+ and i have the most recent update for spotify",
+        "brand_text": "@115887 Thanks. Just to be sure, are you Free or Premium? Also, can you give us more info on what happens when you try using it? /CB",
+        "cust_time": "Tue Oct 31 19:57:59 +0000 2017",
+        "brand_time": "Tue Oct 31 21:04:13 +0000 2017"
+      }
+    ]
+  },
+  "AppleSupport": {
+    "total_brand_tweets": 106860,
+    "matched_pairs_count": 106646,
+    "sample_pairs": [
+      {
+        "brand_tweet_id": 696,
+        "cust_tweet_id": 698.0,
+        "customer_text": "@AppleSupport  https://t.co/NV0yucs0lB",
+        "brand_text": "@115854 We're here for you. Which version of the iOS are you running? Check from Settings &gt; General &gt; About.",
+        "cust_time": "Tue Oct 31 22:17:40 +0000 2017",
+        "brand_time": "Tue Oct 31 22:27:49 +0000 2017"
+      },
+      {
+        "brand_tweet_id": 699,
+        "cust_tweet_id": 697.0,
+        "customer_text": "@AppleSupport The newest update. I\ufe0f made sure to download it yesterday.",
+        "brand_text": "@115854 Lets take a closer look into this issue. Select the following link to join us in a DM and we'll go from there. https://t.co/GDrqU22YpT",
+        "cust_time": "Tue Oct 31 22:31:23 +0000 2017",
+        "brand_time": "Tue Oct 31 22:36:27 +0000 2017"
+      },
+      {
+        "brand_tweet_id": 701,
+        "cust_tweet_id": 702.0,
+        "customer_text": "@AppleSupport Tried resetting my settings .. restarting my phone .. all that",
+        "brand_text": "@115855 Let's go to DM for the next steps. DM us here: https://t.co/GDrqU22YpT",
+        "cust_time": "Tue Oct 31 22:11:31 +0000 2017",
+        "brand_time": "Tue Oct 31 22:26:49 +0000 2017"
+      }
+    ]
+  }
+}

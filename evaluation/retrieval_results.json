@@ -1,0 +1,66 @@
+{
+  "evaluation_dataset_size": 200,
+  "metrics": {
+    "recall@1": 0.295,
+    "recall@3": 0.385,
+    "recall@5": 0.395,
+    "mrr": 0.3347,
+    "mean_top1_similarity": 0.4606
+  },
+  "leakage_verification": {
+    "leakage_incidents_detected": 0,
+    "is_leakage_free": true
+  },
+  "per_intent_breakdown": {
+    "playback_streaming_issue": {
+      "total_queries": 20,
+      "recall@1": 0.15,
+      "recall@5": 0.25
+    },
+    "offline_downloads": {
+      "total_queries": 20,
+      "recall@1": 0.35,
+      "recall@5": 0.5
+    },
+    "subscription_billing": {
+      "total_queries": 20,
+      "recall@1": 0.35,
+      "recall@5": 0.4
+    },
+    "account_security_access": {
+      "total_queries": 20,
+      "recall@1": 0.45,
+      "recall@5": 0.5
+    },
+    "app_crash_performance": {
+      "total_queries": 20,
+      "recall@1": 0.35,
+      "recall@5": 0.35
+    },
+    "playlist_library_management": {
+      "total_queries": 20,
+      "recall@1": 0.55,
+      "recall@5": 0.8
+    },
+    "family_duo_plan": {
+      "total_queries": 20,
+      "recall@1": 0.2,
+      "recall@5": 0.25
+    },
+    "device_connectivity": {
+      "total_queries": 20,
+      "recall@1": 0.25,
+      "recall@5": 0.45
+    },
+    "catalog_licensing": {
+      "total_queries": 20,
+      "recall@1": 0.25,
+      "recall@5": 0.3
+    },
+    "feedback_feature_request": {
+      "total_queries": 20,
+      "recall@1": 0.05,
+      "recall@5": 0.15
+    }
+  }
+}

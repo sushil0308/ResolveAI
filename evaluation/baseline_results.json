@@ -1,0 +1,388 @@
+{
+  "baseline_1_majority": {
+    "model_name": "Baseline 1: Majority Class",
+    "accuracy": 0.1,
+    "macro_precision": 0.01,
+    "macro_recall": 0.1,
+    "macro_f1": 0.0182,
+    "per_class": {
+      "account_security_access": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "app_crash_performance": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "catalog_licensing": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "device_connectivity": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "family_duo_plan": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "feedback_feature_request": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "offline_downloads": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "playback_streaming_issue": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "playlist_library_management": {
+        "precision": 0.1,
+        "recall": 1.0,
+        "f1": 0.1818
+      },
+      "subscription_billing": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "labels": [
+      "account_security_access",
+      "app_crash_performance",
+      "catalog_licensing",
+      "device_connectivity",
+      "family_duo_plan",
+      "feedback_feature_request",
+      "offline_downloads",
+      "playback_streaming_issue",
+      "playlist_library_management",
+      "subscription_billing"
+    ],
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ]
+    ]
+  },
+  "baseline_2_tfidf_logistic": {
+    "model_name": "Baseline 2: TF-IDF + Logistic Regression",
+    "accuracy": 0.56,
+    "macro_precision": 0.5925,
+    "macro_recall": 0.56,
+    "macro_f1": 0.5476,
+    "per_class": {
+      "account_security_access": {
+        "precision": 0.5833,
+        "recall": 0.7,
+        "f1": 0.6364
+      },
+      "app_crash_performance": {
+        "precision": 0.7333,
+        "recall": 0.55,
+        "f1": 0.6286
+      },
+      "catalog_licensing": {
+        "precision": 0.7692,
+        "recall": 0.5,
+        "f1": 0.6061
+      },
+      "device_connectivity": {
+        "precision": 0.7273,
+        "recall": 0.8,
+        "f1": 0.7619
+      },
+      "family_duo_plan": {
+        "precision": 0.6364,
+        "recall": 0.35,
+        "f1": 0.4516
+      },
+      "feedback_feature_request": {
+        "precision": 0.5714,
+        "recall": 0.2,
+        "f1": 0.2963
+      },
+      "offline_downloads": {
+        "precision": 0.6364,
+        "recall": 0.7,
+        "f1": 0.6667
+      },
+      "playback_streaming_issue": {
+        "precision": 0.4286,
+        "recall": 0.3,
+        "f1": 0.3529
+      },
+      "playlist_library_management": {
+        "precision": 0.3243,
+        "recall": 0.6,
+        "f1": 0.4211
+      },
+      "subscription_billing": {
+        "precision": 0.5143,
+        "recall": 0.9,
+        "f1": 0.6545
+      }
+    },
+    "labels": [
+      "account_security_access",
+      "app_crash_performance",
+      "catalog_licensing",
+      "device_connectivity",
+      "family_duo_plan",
+      "feedback_feature_request",
+      "offline_downloads",
+      "playback_streaming_issue",
+      "playlist_library_management",
+      "subscription_billing"
+    ],
+    "confusion_matrix": [
+      [
+        14,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      [
+        1,
+        11,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        10,
+        0,
+        0,
+        1,
+        1,
+        2,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        16,
+        0,
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      [
+        3,
+        1,
+        1,
+        2,
+        7,
+        0,
+        0,
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        2,
+        4,
+        0,
+        1,
+        9,
+        3
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        14,
+        0,
+        4,
+        0
+      ],
+      [
+        2,
+        2,
+        1,
+        1,
+        0,
+        1,
+        0,
+        6,
+        5,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        2,
+        12,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18
+      ]
+    ]
+  }
+}

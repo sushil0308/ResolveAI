@@ -1,0 +1,41 @@
+# Configuration for ResolveAI Customer Support Agent
+
+brand:
+  target_brand: "SpotifyCares"
+  brand_display_name: "Spotify Cares"
+  domain: "Digital Music & Audio Streaming"
+  agent_handle: "@SpotifyCares"
+  agent_initials_style: true
+
+data:
+  raw_path: "data/raw/twcs.csv"
+  processed_dir: "data/processed"
+  conversations_file: "data/processed/conversations.parquet"
+  conversations_csv: "data/processed/conversations.csv"
+  splits_dir: "data/processed/splits"
+  min_customer_len: 10
+  min_brand_len: 10
+  max_len: 500
+
+splits:
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+
+retrieval:
+  top_k: 5
+  similarity_threshold: 0.45
+  index_path: "data/processed/retrieval_index.pkl"
+
+classification:
+  model_type: "tfidf_logistic"  # options: "tfidf_logistic", "prototype_centroid"
+  confidence_threshold: 0.55
+
+escalation:
+  low_confidence_threshold: 0.50
+  low_similarity_threshold: 0.45
+  sensitive_intents:
+    - "account_security_compromise"
+    - "billing_payment_dispute"
+  require_evidence_count: 1

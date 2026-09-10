@@ -1,0 +1,167 @@
+# Intent Taxonomy for Spotify Customer Support
+# 10 practical, mutually exclusive operational intents grounded in empirical Twitter data
+
+intents:
+  playback_streaming_issue:
+    id: "playback_streaming_issue"
+    name: "Playback & Streaming Audio Glitches"
+    description: "Audio stuttering, song stops playing, track skipping, buffering, volume normalization, or shuffle/repeat malfunctioning."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Songs stop playing abruptly or pause after a few seconds"
+      - "Shuffle only plays a small repetitive subset of songs or repeat fails"
+      - "Streaming sound cuts in and out or buffers excessively on good internet"
+    exclusion_criteria:
+      - "Tracks failing to download for offline listening (offline_downloads)"
+      - "Bluetooth or external speaker connection dropouts (device_connectivity)"
+    representative_examples:
+      - "Songs keep pausing after 10 seconds on my iPhone even with full Wi-Fi."
+      - "Why does shuffle mode only play the same 5 tracks over and over again?"
+      - "Music stops playing whenever the screen locks."
+
+  offline_downloads:
+    id: "offline_downloads"
+    name: "Offline Mode & Download Issues"
+    description: "Failures to download songs for offline listening, downloaded tracks vanishing, greyed-out offline songs, or storage/SD card errors."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Download arrow stuck spinning or waiting to download"
+      - "Downloaded songs unplayable or greyed out when disconnected from internet"
+      - "SD card storage allocation for offline music"
+    exclusion_criteria:
+      - "General online streaming playback interruptions (playback_streaming_issue)"
+      - "Songs unavailable due to copyright or regional licensing (catalog_licensing)"
+    representative_examples:
+      - "My downloaded playlists are suddenly showing as greyed out and won't play offline."
+      - "Songs are stuck at 'waiting to download' on my Android phone."
+      - "All my downloaded music got deleted after I updated the app."
+
+  subscription_billing:
+    id: "subscription_billing"
+    name: "Subscription & Billing Inquiries"
+    description: "Premium plan pricing, payment failures, double charges, student discount verification (SheerID), refund requests, and cancellations."
+    escalation_default: "ESCALATE"
+    inclusion_criteria:
+      - "Customer charged twice for the same billing period"
+      - "Payment method rejected or credit card recurring failure"
+      - "Student discount renewal or verification problem via SheerID"
+      - "Requesting a refund or cancellation assistance"
+    exclusion_criteria:
+      - "Family or Duo plan residential address matching disputes (family_duo_plan)"
+    representative_examples:
+      - "I was charged twice for Premium this month on my credit card statement."
+      - "My student discount didn't renew even though I submitted my university credentials."
+      - "I cancelled my subscription last month but was charged again today."
+
+  account_security_access:
+    id: "account_security_access"
+    name: "Account Security & Access"
+    description: "Inability to log in, forgotten passwords, password reset links failing, suspected account breach/hijack, or unauthorized email change."
+    escalation_default: "ESCALATE"
+    inclusion_criteria:
+      - "Account hijacked, stolen, or unauthorized email modification"
+      - "Password reset email not arriving in inbox or spam folder"
+      - "Locked out of account or Facebook login disassociated"
+    exclusion_criteria:
+      - "Routine profile customizations like avatar or display name"
+    representative_examples:
+      - "Someone hacked into my account and changed the email address, please help!"
+      - "I am locked out of my account and the password reset link never arrives."
+      - "My account was compromised and all my playlists were deleted."
+
+  app_crash_performance:
+    id: "app_crash_performance"
+    name: "App Crash & Technical Bugs"
+    description: "App crashing immediately on launch, complete freezing, black/blank screen, or severe unresponsive UI following an update."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "App force closes or crashes to home screen upon opening"
+      - "Desktop app completely frozen on black or grey window"
+      - "App unresponsive to touch input or buttons"
+    exclusion_criteria:
+      - "Music plays smoothly but song queue has an ordering bug (playlist_library_management)"
+    representative_examples:
+      - "Every time I open the app on iOS 11 it instantly crashes to the home screen."
+      - "The desktop app is completely frozen on a grey screen after the latest update."
+      - "Spotify closes every time I try to search for an artist."
+
+  playlist_library_management:
+    id: "playlist_library_management"
+    name: "Playlist, Library & Local Files"
+    description: "Missing or deleted playlists, library songs not updating, local MP3 files failing to sync between devices, or queue order errors."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Accidentally deleted playlist or playlist vanished from library"
+      - "Local audio files on PC fail to sync over local network to phone"
+      - "Liked songs counter incorrect or not updating"
+    exclusion_criteria:
+      - "Songs greyed out because artist removed licensing rights (catalog_licensing)"
+    representative_examples:
+      - "My playlist with over 500 songs just vanished from my library today."
+      - "My local files from my PC are not showing up on my iPhone app."
+      - "How do I recover a playlist that I accidentally deleted last night?"
+
+  family_duo_plan:
+    id: "family_duo_plan"
+    name: "Family & Duo Plan Administration"
+    description: "Member invitations, residential address verification failures, and plan administration for Spotify Premium Family or Duo plans."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Address does not match account manager error during invite acceptance"
+      - "Invite link expired or member slot assignment"
+      - "Switching between individual Premium and Family plan"
+    exclusion_criteria:
+      - "General credit card charge disputes (subscription_billing)"
+    representative_examples:
+      - "My brother lives at the same house but it says our addresses don't match."
+      - "How do I send an invitation link to a family member for our Family plan?"
+      - "The family invite link says it is already used or expired."
+
+  device_connectivity:
+    id: "device_connectivity"
+    name: "Device Connectivity & Hardware Integration"
+    description: "Integration issues with Bluetooth headphones, Spotify Connect, Chromecast, Apple CarPlay, Android Auto, gaming consoles, or smart speakers."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Spotify Connect not showing external speaker on the same Wi-Fi"
+      - "Bluetooth audio cutting out or pausing when connecting to car"
+      - "CarPlay or Android Auto app not launching or freezing"
+      - "PS4 / Xbox app connection failure"
+    exclusion_criteria:
+      - "Phone internal speaker audio bugs when no peripheral is connected (playback_streaming_issue)"
+    representative_examples:
+      - "Spotify Connect cannot find my Sonos speaker even though we are on the same Wi-Fi."
+      - "Audio cuts out whenever my phone connects to Apple CarPlay."
+      - "The Spotify app on my PS4 says it cannot link to my account."
+
+  catalog_licensing:
+    id: "catalog_licensing"
+    name: "Content Catalog & Regional Licensing"
+    description: "Inquiries regarding albums or songs unavailable in a specific country, licensing removals, or explicit content filtering."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Album or artist catalogue missing or removed from Spotify"
+      - "Song greyed out due to regional licensing restrictions"
+      - "Explicit version of song censored or unavailable"
+    exclusion_criteria:
+      - "Personal MP3 local files failing to transfer from PC (playlist_library_management)"
+    representative_examples:
+      - "Why was Jay-Z's discography removed from Spotify?"
+      - "Half of the songs on this album are greyed out in my country."
+      - "Why can I only find the clean radio edit of this track?"
+
+  feedback_feature_request:
+    id: "feedback_feature_request"
+    name: "Feedback, UI Changes & Feature Requests"
+    description: "User feedback on interface updates, feature suggestions (such as lyrics or swipe gestures), general complaints, or praise."
+    escalation_default: "AUTO_HANDLE"
+    inclusion_criteria:
+      - "Complaints about new app UI layouts, navigation, or font sizes"
+      - "Requests for new features (e.g. lyrics, Hi-Fi audio, widget)"
+      - "General appreciation or non-technical support chatter"
+    exclusion_criteria:
+      - "Technical bugs causing app to crash or freeze (app_crash_performance)"
+    representative_examples:
+      - "Please bring back the old swipe-to-queue gesture in the next update!"
+      - "Feature suggestion: let us view live synchronized lyrics while listening."
+      - "I really dislike the new UI update, it takes too many taps to reach my library."

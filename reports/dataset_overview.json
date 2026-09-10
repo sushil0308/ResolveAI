@@ -1,0 +1,133 @@
+{
+  "total_inspected_rows": 2811774,
+  "inbound_count": 1537843,
+  "outbound_count": 1273931,
+  "unique_brands": 108,
+  "top_brands": [
+    {
+      "rank": 1,
+      "brand": "AmazonHelp",
+      "outbound_tweets": 169840
+    },
+    {
+      "rank": 2,
+      "brand": "AppleSupport",
+      "outbound_tweets": 106860
+    },
+    {
+      "rank": 3,
+      "brand": "Uber_Support",
+      "outbound_tweets": 56270
+    },
+    {
+      "rank": 4,
+      "brand": "SpotifyCares",
+      "outbound_tweets": 43265
+    },
+    {
+      "rank": 5,
+      "brand": "Delta",
+      "outbound_tweets": 42253
+    },
+    {
+      "rank": 6,
+      "brand": "Tesco",
+      "outbound_tweets": 38573
+    },
+    {
+      "rank": 7,
+      "brand": "AmericanAir",
+      "outbound_tweets": 36764
+    },
+    {
+      "rank": 8,
+      "brand": "TMobileHelp",
+      "outbound_tweets": 34317
+    },
+    {
+      "rank": 9,
+      "brand": "comcastcares",
+      "outbound_tweets": 33031
+    },
+    {
+      "rank": 10,
+      "brand": "British_Airways",
+      "outbound_tweets": 29361
+    },
+    {
+      "rank": 11,
+      "brand": "SouthwestAir",
+      "outbound_tweets": 28977
+    },
+    {
+      "rank": 12,
+      "brand": "VirginTrains",
+      "outbound_tweets": 27817
+    },
+    {
+      "rank": 13,
+      "brand": "Ask_Spectrum",
+      "outbound_tweets": 25860
+    },
+    {
+      "rank": 14,
+      "brand": "XboxSupport",
+      "outbound_tweets": 24557
+    },
+    {
+      "rank": 15,
+      "brand": "sprintcare",
+      "outbound_tweets": 22381
+    },
+    {
+      "rank": 16,
+      "brand": "hulu_support",
+      "outbound_tweets": 21872
+    },
+    {
+      "rank": 17,
+      "brand": "sainsburys",
+      "outbound_tweets": 19466
+    },
+    {
+      "rank": 18,
+      "brand": "GWRHelp",
+      "outbound_tweets": 19364
+    },
+    {
+      "rank": 19,
+      "brand": "AskPlayStation",
+      "outbound_tweets": 19098
+    },
+    {
+      "rank": 20,
+      "brand": "ChipotleTweets",
+      "outbound_tweets": 18749
+    },
+    {
+      "rank": 21,
+      "brand": "VerizonSupport",
+      "outbound_tweets": 17966
+    },
+    {
+      "rank": 22,
+      "brand": "UPSHelp",
+      "outbound_tweets": 17817
+    },
+    {
+      "rank": 23,
+      "brand": "ATVIAssist",
+      "outbound_tweets": 17650
+    },
+    {
+      "rank": 24,
+      "brand": "O2",
+      "outbound_tweets": 16212
+    },
+    {
+      "rank": 25,
+      "brand": "Safaricom_Care",
+      "outbound_tweets": 16077
+    }
+  ]
+}

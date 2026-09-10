@@ -1,0 +1,516 @@
+{
+  "timestamp": "2026-09-11T00:30:35.764359",
+  "evaluation_dataset_size": 200,
+  "execution_time_seconds": 6.33,
+  "comparison_table": {
+    "baseline_1_majority": {
+      "name": "Baseline 1: Majority Class",
+      "accuracy": 0.1,
+      "macro_f1": 0.0182,
+      "macro_precision": 0.01,
+      "macro_recall": 0.1
+    },
+    "baseline_2_tfidf_logistic": {
+      "name": "Baseline 2: TF-IDF + Logistic",
+      "accuracy": 0.56,
+      "macro_f1": 0.5476,
+      "macro_precision": 0.5925,
+      "macro_recall": 0.56
+    },
+    "main_system": {
+      "name": "Main System: Hybrid Calibrated Agent",
+      "accuracy": 0.61,
+      "macro_f1": 0.5993,
+      "macro_precision": 0.6425,
+      "macro_recall": 0.61
+    }
+  },
+  "retrieval": {
+    "recall@1": 0.285,
+    "recall@3": 0.345,
+    "recall@5": 0.365,
+    "mrr": 0.3167,
+    "mean_similarity": 0.4701
+  },
+  "escalation": {
+    "accuracy": 0.415,
+    "precision": 0.2581,
+    "recall": 0.9524,
+    "f1": 0.4061,
+    "confusion_matrix": {
+      "true_auto_handle_tn": 43,
+      "false_escalation_fp": 115,
+      "false_auto_handle_fn": 2,
+      "true_escalation_tp": 40
+    },
+    "critical_metrics": {
+      "false_auto_handling_rate": 0.0476,
+      "false_escalation_rate": 0.7278,
+      "safe_auto_handling_rate": 0.2722,
+      "automation_coverage": 0.415
+    }
+  },
+  "reply_quality": {
+    "mean_overall": 4.63,
+    "dimensions": {
+      "correctness": {
+        "mean": 4.66,
+        "median": 5,
+        "std": 0.96,
+        "distribution": {
+          "1": 0,
+          "2": 23,
+          "3": 0,
+          "4": 0,
+          "5": 177
+        }
+      },
+      "groundedness": {
+        "mean": 5.0,
+        "median": 5,
+        "std": 0.0,
+        "distribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 200
+        }
+      },
+      "relevance": {
+        "mean": 3.65,
+        "median": 5,
+        "std": 1.45,
+        "distribution": {
+          "1": 0,
+          "2": 86,
+          "3": 0,
+          "4": 13,
+          "5": 101
+        }
+      },
+      "helpfulness": {
+        "mean": 4.47,
+        "median": 5,
+        "std": 0.88,
+        "distribution": {
+          "1": 0,
+          "2": 0,
+          "3": 53,
+          "4": 0,
+          "5": 147
+        }
+      },
+      "brand_consistency": {
+        "mean": 5.0,
+        "median": 5,
+        "std": 0.0,
+        "distribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 200
+        }
+      },
+      "safety_unsupported_claims": {
+        "mean": 5.0,
+        "median": 5,
+        "std": 0.0,
+        "distribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 200
+        }
+      }
+    }
+  },
+  "main_intent_detailed": {
+    "model_name": "Main System: Hybrid Calibrated Agent",
+    "accuracy": 0.61,
+    "macro_precision": 0.6425,
+    "macro_recall": 0.61,
+    "macro_f1": 0.5993,
+    "per_class": {
+      "account_security_access": {
+        "precision": 0.6087,
+        "recall": 0.7,
+        "f1": 0.6512
+      },
+      "app_crash_performance": {
+        "precision": 0.8462,
+        "recall": 0.55,
+        "f1": 0.6667
+      },
+      "catalog_licensing": {
+        "precision": 0.8333,
+        "recall": 0.5,
+        "f1": 0.625
+      },
+      "device_connectivity": {
+        "precision": 0.8421,
+        "recall": 0.8,
+        "f1": 0.8205
+      },
+      "family_duo_plan": {
+        "precision": 0.7,
+        "recall": 0.7,
+        "f1": 0.7
+      },
+      "feedback_feature_request": {
+        "precision": 0.5714,
+        "recall": 0.2,
+        "f1": 0.2963
+      },
+      "offline_downloads": {
+        "precision": 0.6923,
+        "recall": 0.9,
+        "f1": 0.7826
+      },
+      "playback_streaming_issue": {
+        "precision": 0.4615,
+        "recall": 0.3,
+        "f1": 0.3636
+      },
+      "playlist_library_management": {
+        "precision": 0.3235,
+        "recall": 0.55,
+        "f1": 0.4074
+      },
+      "subscription_billing": {
+        "precision": 0.5455,
+        "recall": 0.9,
+        "f1": 0.6792
+      }
+    },
+    "labels": [
+      "account_security_access",
+      "app_crash_performance",
+      "catalog_licensing",
+      "device_connectivity",
+      "family_duo_plan",
+      "feedback_feature_request",
+      "offline_downloads",
+      "playback_streaming_issue",
+      "playlist_library_management",
+      "subscription_billing"
+    ],
+    "confusion_matrix": [
+      [
+        14,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      [
+        1,
+        11,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        10,
+        0,
+        1,
+        1,
+        1,
+        1,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        16,
+        0,
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        2,
+        4,
+        0,
+        1,
+        9,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18,
+        0,
+        2,
+        0
+      ],
+      [
+        2,
+        2,
+        1,
+        1,
+        0,
+        1,
+        0,
+        6,
+        5,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        6,
+        2,
+        11,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18
+      ]
+    ]
+  },
+  "baseline_2_detailed": {
+    "model_name": "Baseline 2: TF-IDF + Logistic",
+    "accuracy": 0.56,
+    "macro_precision": 0.5925,
+    "macro_recall": 0.56,
+    "macro_f1": 0.5476,
+    "per_class": {
+      "account_security_access": {
+        "precision": 0.5833,
+        "recall": 0.7,
+        "f1": 0.6364
+      },
+      "app_crash_performance": {
+        "precision": 0.7333,
+        "recall": 0.55,
+        "f1": 0.6286
+      },
+      "catalog_licensing": {
+        "precision": 0.7692,
+        "recall": 0.5,
+        "f1": 0.6061
+      },
+      "device_connectivity": {
+        "precision": 0.7273,
+        "recall": 0.8,
+        "f1": 0.7619
+      },
+      "family_duo_plan": {
+        "precision": 0.6364,
+        "recall": 0.35,
+        "f1": 0.4516
+      },
+      "feedback_feature_request": {
+        "precision": 0.5714,
+        "recall": 0.2,
+        "f1": 0.2963
+      },
+      "offline_downloads": {
+        "precision": 0.6364,
+        "recall": 0.7,
+        "f1": 0.6667
+      },
+      "playback_streaming_issue": {
+        "precision": 0.4286,
+        "recall": 0.3,
+        "f1": 0.3529
+      },
+      "playlist_library_management": {
+        "precision": 0.3243,
+        "recall": 0.6,
+        "f1": 0.4211
+      },
+      "subscription_billing": {
+        "precision": 0.5143,
+        "recall": 0.9,
+        "f1": 0.6545
+      }
+    },
+    "labels": [
+      "account_security_access",
+      "app_crash_performance",
+      "catalog_licensing",
+      "device_connectivity",
+      "family_duo_plan",
+      "feedback_feature_request",
+      "offline_downloads",
+      "playback_streaming_issue",
+      "playlist_library_management",
+      "subscription_billing"
+    ],
+    "confusion_matrix": [
+      [
+        14,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      [
+        1,
+        11,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        10,
+        0,
+        0,
+        1,
+        1,
+        2,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        16,
+        0,
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      [
+        3,
+        1,
+        1,
+        2,
+        7,
+        0,
+        0,
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        2,
+        4,
+        0,
+        1,
+        9,
+        3
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        14,
+        0,
+        4,
+        0
+      ],
+      [
+        2,
+        2,
+        1,
+        1,
+        0,
+        1,
+        0,
+        6,
+        5,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        2,
+        12,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18
+      ]
+    ]
+  }
+}

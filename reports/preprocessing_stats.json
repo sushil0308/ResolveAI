@@ -1,0 +1,25 @@
+{
+  "target_brand": "SpotifyCares",
+  "total_raw_rows_scanned": 2811774,
+  "total_brand_tweets": 43265,
+  "inbound_cache_size": 1537843,
+  "matched_pairs_initial": 43092,
+  "filtered_short_length": 53,
+  "filtered_duplicates": 2357,
+  "final_clean_conversations": 40682,
+  "splits": {
+    "train_count": 28477,
+    "val_count": 6102,
+    "test_count": 6103,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15
+  },
+  "leakage_verification": {
+    "val_overlap_count": 0,
+    "test_overlap_count": 0,
+    "leakage_detected": false
+  },
+  "earliest_timestamp": "Wed Sep 18 19:26:22 +0000 2013",
+  "latest_timestamp": "Sun Dec 03 22:07:39 +0000 2017"
+}
