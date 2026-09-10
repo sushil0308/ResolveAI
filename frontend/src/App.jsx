@@ -42,7 +42,7 @@ export default function App() {
       case "analytics":
         return { title: "Operational Analytics & Telemetry", subtitle: "Volume, routing patterns, and data pipeline statistics" };
       case "about":
-        return { title: "System Architecture & Engineering Decisions", subtitle: "Critical analysis, intellectual honesty, and engineering roadmap" };
+        return { title: "System Architecture & Engineering Decisions", subtitle: "Critical analysis, intellectual honesty, and engineering methodology" };
       default:
         return { title: "ResolveAI Copilot", subtitle: "AI Customer Support Copilot" };
     }
@@ -108,7 +108,7 @@ export default function App() {
             className={`nav-item ${activeTab === "about" ? "active" : ""}`}
             onClick={() => setActiveTab("about")}
           >
-            <span>ℹ️</span> About & Roadmap
+            <span>ℹ️</span> System Architecture
           </button>
         </nav>
 
