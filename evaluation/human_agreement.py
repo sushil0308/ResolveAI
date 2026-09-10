@@ -29,6 +29,25 @@ JUDGE_OUTPUTS_PATH = os.path.join("evaluation", "judge_outputs.json")
 SAMPLE_OUTPUT_PATH = os.path.join("evaluation", "human_judge_sample.csv")
 AGREEMENT_RESULTS_PATH = os.path.join("evaluation", "judge_agreement_results.json")
 REPORT_PATH = os.path.join("reports", "judge_agreement.md")
+REPORT_PATH_ALT = os.path.join("reports", "human_agreement_report.md")
+
+def _load_dotenv():
+    env_path = os.path.join(os.getcwd(), ".env")
+    if os.path.exists(env_path):
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k and k not in os.environ:
+                            os.environ[k] = v
+        except Exception:
+            pass
+
+_load_dotenv()
 
 DIMENSIONS = [
     "correctness",
@@ -315,6 +334,8 @@ def _write_report(res: Dict[str, Any]):
 3. **Reproducibility**: The aligned pairs are saved in `evaluation/human_judge_sample.csv` for independent auditing.
 """
     with open(REPORT_PATH, "w", encoding="utf-8") as f:
+        f.write(md)
+    with open(REPORT_PATH_ALT, "w", encoding="utf-8") as f:
         f.write(md)
 
 

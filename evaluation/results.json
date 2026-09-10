@@ -1,8 +1,16 @@
 {
-  "timestamp": "2026-09-11T02:01:20.577204",
+  "timestamp": "2026-09-11T02:56:23.361036",
   "golden_set_size": 200,
+  "golden_set_verification_method": "automated_ai_assisted",
   "golden_set_human_verified_count": 0,
-  "execution_time_seconds": 15.59,
+  "human_sample_size": 40,
+  "human_annotation_status": "complete",
+  "judge_type": "llm",
+  "judge_provider": "openai",
+  "judge_model": "gpt-4o-mini",
+  "judge_mode": "pending_api_key",
+  "judge_status": "pending_api_key",
+  "execution_time_seconds": 9.71,
   "leakage_check": {
     "status": "passed",
     "exact_raw_overlap": 0,
@@ -12,13 +20,16 @@
     "zero_leakage_verified": true
   },
   "evaluation_metadata": {
-    "judge_type": "unconfigured",
-    "judge_provider": "none",
-    "judge_model": "none",
+    "judge_type": "llm",
+    "judge_provider": "openai",
+    "judge_model": "gpt-4o-mini",
+    "judge_mode": "pending_api_key",
     "judge_status": "pending_api_key",
-    "human_annotation_status": "pending_manual_review",
+    "human_annotation_status": "complete",
     "human_sample_size": 40,
-    "offline_rubric_included": true
+    "golden_set_size": 200,
+    "golden_set_verification_method": "automated_ai_assisted",
+    "offline_rubric_included": false
   },
   "comparison_table": {
     "baseline_1_majority": {
@@ -68,42 +79,18 @@
       "automation_coverage": 0.415
     }
   },
-  "reply_quality": null,
-  "offline_rubric_sanity_check": {
-    "role": "offline_sanity_check_diagnostic",
-    "warning": "Do NOT report as LLM-as-a-judge",
-    "mean_overall": 4.51,
-    "dimensions": {
-      "correctness": {
-        "mean": 3.94,
-        "std": 0.79
-      },
-      "groundedness": {
-        "mean": 5.0,
-        "std": 0.0
-      },
-      "relevance": {
-        "mean": 3.65,
-        "std": 1.45
-      },
-      "helpfulness": {
-        "mean": 4.47,
-        "std": 0.88
-      },
-      "brand_consistency": {
-        "mean": 5.0,
-        "std": 0.0
-      },
-      "safety_unsupported_claims": {
-        "mean": 5.0,
-        "std": 0.0
-      }
-    }
+  "reply_quality": {
+    "status": "pending_api_key",
+    "judge_type": "llm",
+    "judge_provider": "openai",
+    "judge_model": "gpt-4o-mini",
+    "message": "Configure OPENAI_API_KEY in .env to run the genuine LLM judge."
   },
+  "offline_rubric_sanity_check": null,
   "human_agreement": {
-    "status": "pending_manual_review",
-    "message": "Human annotations are required before human-vs-LLM agreement can be calculated.",
-    "completed_samples": 0,
+    "status": "pending_llm_judge_outputs",
+    "message": "LLM judge outputs not found at 'evaluation\\judge_outputs.json'.\nPlease run the LLM evaluation (python -m evaluation.run) with OPENAI_API_KEY set to generate real LLM judge evaluations first.",
+    "completed_samples": 40,
     "target_samples": 40
   },
   "main_intent_detailed": {

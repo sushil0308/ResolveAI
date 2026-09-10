@@ -1,0 +1,5 @@
+example_id,current_label,suggested_label,confidence,reason
+gold_005,playback_streaming_issue,subscription_billing,0.2,Customer message mentions billing/payment keywords ('google play card') but is labeled as playback_streaming_issue.
+gold_017,playback_streaming_issue,account_access,0.28,Customer message indicates account access issues rather than audio streaming failure.
+gold_018,playback_streaming_issue,account_access,0.38,Customer message indicates account access issues rather than audio streaming failure.
+gold_196,feedback_feature_request,family_duo_plan,0.84,High-confidence classifier discrepancy: Model predicts 'family_duo_plan' (84.3%) while ground truth is 'feedback_feature_request'.

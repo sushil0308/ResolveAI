@@ -96,7 +96,7 @@ Evaluated across all 200 Golden evaluation queries against the 28,477-case histo
 | **Recall@5** | **36.5%** | Top-5 case pool contains relevant resolution precedent |
 | **MRR (Mean Reciprocal Rank)** | **0.3167** | Average reciprocal rank of first relevant precedent |
 | **Mean Top-1 Similarity** | **0.4701** | Average normalized vector cosine similarity |
-| **Data Leakage Check** | **PASSED (0 Exact Overlap, 0 Index Overlap)** | Verified zero train-test overlap |
+| **Data Leakage Check** | **PASSED (0 Substantive Overlap, 0 Index Overlap)** | Exact text overlap: 2 trivial courtesy tweets (`@SpotifyCares thank you`); zero technical issue overlap. Full audit in [`reports/leakage_audit.md`](reports/leakage_audit.md) |
 
 ### 3. Escalation Safety Performance
 
@@ -106,6 +106,16 @@ Evaluated across all 200 Golden evaluation queries against the 28,477-case histo
 | **False Escalation Rate** | **72.78%** | &lt; 80.0% | Conservative fallback on ambiguous slang and low confidence |
 | **True Escalation (TP)** | **40 / 42** | &gt; 90.0% | 95.24% of billing disputes and account breaches caught |
 | **Automation Coverage** | **41.5%** | - | Safe automation for verified self-service technical complaints |
+
+---
+
+## Evaluation Dataset Provenance
+
+The 200-case Golden Evaluation Set (`evaluation/golden_set.csv`) is a **curated evaluation set with automated/AI-assisted verification**, not a claim of "200 hand-labelled examples":
+- **Provenance Documentation**: Fully detailed in [`evaluation/GOLDEN_SET_PROVENANCE.md`](evaluation/GOLDEN_SET_PROVENANCE.md).
+- **Machine-Verified Dataset**: Available at `evaluation/golden_set_machine_verified.csv` (all cases verified via pipeline ensemble with `human_verified = False`).
+- **Domain Review Flags**: 4 borderline cases flagged for human review in `evaluation/golden_set_review_flags.csv` (e.g. `gold_005` Google Play Card billing query miscategorized as playback).
+- **Zero Fabrication Guarantee**: Human verification flags are reserved exclusively for the 40 manually annotated samples.
 
 ---
 
@@ -121,9 +131,10 @@ Reply quality is evaluated using a genuine LLM-as-a-Judge powered by the OpenAI 
 ### Manual Human Annotation & Agreement
 Unlike systems that manufacture synthetic human ratings with noise, ResolveAI enforces a genuine human review protocol:
 1. **Sample Selection**: 40 representative customer interactions sampled across Easy (20), Short/Noisy (10), and Ambiguous/Edge (10) tiers.
-2. **Single-Blind Rating**: Reviewers rate interactions through the dedicated **Human Review UI** (`/review`) or `evaluation/human_annotation_template.csv` without seeing model scores, confidence, or automated judgments.
-3. **Storage**: Real ratings are stored in `evaluation/human_annotations.csv`.
-4. **Agreement Calculation**: `python -m evaluation.human_agreement` validates completeness across all 40 cases and computes Exact Agreement %, Within-1-Point %, Pearson $r$, and quadratic weighted Cohen's $\kappa$.
+2. **Single-Blind Rating**: Reviewers rate interactions through the dedicated **Human Review UI** (`/review`) without seeing model scores, confidence, or automated judgments.
+3. **Storage**: Real manual ratings are stored in `evaluation/human_annotations.csv` (100% complete, 40/40 rated).
+4. **Purged Simulation Numbers**: Previous simulated human agreement numbers (90.42% exact agreement, $\kappa = 0.8677$) have been completely purged from the repository.
+5. **Agreement Calculation**: `python -m evaluation.human_agreement` compares the 40 real human annotations directly against cached LLM judge ratings, computing Exact Agreement %, Within-1-Point %, Pearson $r$, and quadratic weighted Cohen's $\kappa$. Detailed report in [`reports/human_agreement_report.md`](reports/human_agreement_report.md).
 
 ---
 
@@ -157,6 +168,8 @@ An experienced engineer must scrutinize what headline benchmarks do and do not r
    While outperforming classical baselines, a ~60% macro F1 reflects the genuine difficulty of short, noisy, multi-intent Twitter messages. Multi-intent complaints and extreme informal slang remain significant technical hurdles.
 6. **LLM Judge Scores as an Evaluator Proxy**:
    LLM-as-a-judge scores are an automated evaluation proxy subject to model biases (e.g. length preference, formatting affinity). They provide scalable signal but must never be treated as absolute ground truth.
+7. **Human Agreement Reflects a Single Human Reviewer**:
+   Our 40-case manual annotation set was evaluated by a single human reviewer ($N = 1$). While single-blind and rigorous, it reflects the subjective standard of one annotator rather than a multi-annotator crowd consensus or inter-annotator Fleiss' kappa.
 
 ---
 

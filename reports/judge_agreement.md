@@ -9,12 +9,11 @@ The study demonstrates **substantial inter-annotator reliability** without infla
 
 ## 1. Headline Agreement Metrics
 
-| Metric | Measured Value | Interpretation |
+| Agreement Metric | Measured Value | Standard Interpretation |
 | :--- | :--- | :--- |
-| **Exact Agreement** | **90.42%** | High exact scoring alignment across discrete 1-5 scale |
-| **Within-1-Point Agreement** | **100.0%** | Near-universal consensus on quality bands |
-| **Pearson Correlation ($r$)** | **0.9486** | Strong positive linear co-variation |
-| **Weighted Cohen's Kappa ($\kappa$)** | **0.8677** | Substantial agreement correcting for chance agreement |
+| **Status** | **Pending Live API Run** | Awaiting `OPENAI_API_KEY` for live GPT-4o-mini judge |
+| **Human Sample Size** | **40 Real Cases** | Manually rated in `evaluation/human_annotations.csv` |
+| **Notice** | **Simulated Ratings Purged** | Old synthetic scores (90.42%, κ = 0.8677) permanently deleted |
 
 ---
 

@@ -1,6 +1,6 @@
 # End-to-End Evaluation Report: ResolveAI Support Copilot
 
-**Date of Execution**: 2026-09-11T02:01:20.577204  
+**Date of Execution**: 2026-09-11T02:56:23.361036  
 **Evaluation Dataset**: 200 Golden Set Examples (`evaluation/golden_set.csv`)  
 **Golden Set Verification Status**: 0 / 200 manually verified  
 **Zero-Leakage Status**: PASSED (0 Exact Overlap, 0 Retrieval Index Overlap)  

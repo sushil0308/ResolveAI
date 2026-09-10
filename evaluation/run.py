@@ -44,6 +44,24 @@ RESULTS_JSON_PATH = os.path.join("evaluation", "results.json")
 SUMMARY_MD_PATH = os.path.join("reports", "evaluation_summary.md")
 HUMAN_ANNOTATIONS_PATH = os.path.join("evaluation", "human_annotations.csv")
 
+def _load_dotenv():
+    env_path = os.path.join(os.getcwd(), ".env")
+    if os.path.exists(env_path):
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k and k not in os.environ:
+                            os.environ[k] = v
+        except Exception:
+            pass
+
+_load_dotenv()
+
 
 def run_data_leakage_check(df_gold: pd.DataFrame) -> Dict[str, Any]:
     """
@@ -254,25 +272,36 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
     # -------------------------------------------------------------
     # Stage E: LLM Reply-Quality Evaluation (Genuine LLM Judge)
     # -------------------------------------------------------------
+    judge_model_used: str = os.environ.get("LLM_JUDGE_MODEL", "gpt-4o-mini")
     print("\n--- [Stage E] Evaluating Reply Quality with LLM Judge ---")
+    print("Using LLM judge")
+    print("Provider: OpenAI")
+    print(f"Model: {judge_model_used}")
+
     dimensions = ["correctness", "groundedness", "relevance", "helpfulness", "brand_consistency", "safety_unsupported_claims"]
     llm_judge = LLMReplyQualityJudge(force_refresh=force_llm)
 
     reply_quality_results: Optional[Dict[str, Any]] = None
     judge_status: str = "unconfigured"
-    judge_model_used: str = os.environ.get("LLM_JUDGE_MODEL", "gpt-4o-mini")
 
     if not llm_judge.is_configured():
-        print("  [NOTICE] OPENAI_API_KEY is not configured in the environment.")
-        print("  To run the true LLM-as-a-Judge evaluation, configure OPENAI_API_KEY in your shell or .env:")
-        print("    $env:OPENAI_API_KEY='your-key-here'")
-        print("  In accordance with evaluation integrity rules, heuristic fallback is NOT reported as LLM judge.")
+        print("  [ERROR] OPENAI_API_KEY environment variable is not configured in environment or .env.")
+        print("  Stopping LLM-based reply-quality evaluation.")
+        print("  Per evaluation integrity rules, heuristic fallback is NOT reported as LLM judge.")
         judge_status = "pending_api_key"
+        reply_quality_results = {
+            "status": "pending_api_key",
+            "judge_type": "llm",
+            "judge_provider": "openai",
+            "judge_model": judge_model_used,
+            "message": "Configure OPENAI_API_KEY in .env to run the genuine LLM judge.",
+        }
     else:
         print(f"  OpenAI API key detected. Evaluating replies using {judge_model_used}...")
         dim_scores = {d: [] for d in dimensions}
         judge_records = []
         cached_hits = 0
+        api_failed = False
 
         for idx, row in df_gold.iterrows():
             ex_id = row["example_id"]
@@ -282,14 +311,30 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
             evidence = retrieved_cases_pool[idx]
             decision = escalation_preds[idx]
 
-            judgement = llm_judge.evaluate_reply(
-                example_id=ex_id,
-                customer_message=msg,
-                intent=intent,
-                draft_reply=reply,
-                retrieved_evidence=evidence,
-                escalation_decision=decision,
-            )
+            try:
+                judgement = llm_judge.evaluate_reply(
+                    example_id=ex_id,
+                    customer_message=msg,
+                    intent=intent,
+                    draft_reply=reply,
+                    retrieved_evidence=evidence,
+                    escalation_decision=decision,
+                )
+            except Exception as e:
+                print(f"  [API ERROR] OpenAI API call failed for {ex_id}: {e}")
+                print("  Stopping LLM-based reply-quality evaluation.")
+                print("  Per evaluation integrity rules, heuristic fallback is NOT reported as LLM judge.")
+                judge_status = "api_error"
+                reply_quality_results = {
+                    "status": "api_error",
+                    "error": str(e),
+                    "judge_type": "llm",
+                    "judge_provider": "openai",
+                    "judge_model": judge_model_used,
+                }
+                api_failed = True
+                break
+
             if judgement.is_cached:
                 cached_hits += 1
 
@@ -301,37 +346,39 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
             dim_scores["safety_unsupported_claims"].append(judgement.safety_unsupported_claims.score)
             judge_records.append(judgement.model_dump())
 
-        quality_summary = {}
-        overall_all = []
-        for d in dimensions:
-            arr = dim_scores[d]
-            quality_summary[d] = {
-                "mean": round(float(np.mean(arr)), 2),
-                "median": int(np.median(arr)),
-                "std": round(float(np.std(arr)), 2),
-                "distribution": {str(k): int(sum(1 for x in arr if x == k)) for k in range(1, 6)},
-            }
-            overall_all.extend(arr)
+        if not api_failed:
+            quality_summary = {}
+            overall_all = []
+            for d in dimensions:
+                arr = dim_scores[d]
+                quality_summary[d] = {
+                    "mean": round(float(np.mean(arr)), 2),
+                    "median": int(np.median(arr)),
+                    "std": round(float(np.std(arr)), 2),
+                    "distribution": {str(k): int(sum(1 for x in arr if x == k)) for k in range(1, 6)},
+                }
+                overall_all.extend(arr)
 
-        reply_quality_results = {
-            "status": "completed",
-            "judge_type": "llm",
-            "judge_provider": "openai",
-            "judge_model": judge_model_used,
-            "cached_evaluations_reused": cached_hits,
-            "mean_overall": round(float(np.mean(overall_all)), 2),
-            "dimensions": quality_summary,
-        }
-        judge_status = "completed"
-        print(f"  LLM Judge completed across all {n_samples} cases (cached hits reused: {cached_hits}).")
-        print(f"  Headline Mean Overall Quality: {reply_quality_results['mean_overall']} / 5")
+            reply_quality_results = {
+                "status": "completed",
+                "judge_type": "llm",
+                "judge_provider": "openai",
+                "judge_model": judge_model_used,
+                "cached_evaluations_reused": cached_hits,
+                "mean_overall": round(float(np.mean(overall_all)), 2),
+                "dimensions": quality_summary,
+            }
+            judge_status = "completed"
+            print(f"  LLM Judge completed across all {n_samples} cases (cached hits reused: {cached_hits}).")
+            print(f"  Headline Mean Overall Quality: {reply_quality_results['mean_overall']} / 5")
 
     # Optional Offline Rubric Sanity Check (Diagnostic Only)
     offline_rubric_diagnostics: Optional[Dict[str, Any]] = None
     if run_offline_rubric:
-        print("\n--- [Diagnostic] Running Offline Rubric Sanity Check ---")
+        print("\n--- [Diagnostic] Running Offline Rubric Sanity Check (NOT LLM) ---")
         checker = OfflineRubricSanityCheck()
         off_dim_scores = {d: [] for d in dimensions}
+
         for idx, row in df_gold.iterrows():
             j = checker.evaluate(
                 example_id=row["example_id"],
@@ -373,17 +420,26 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
     human_agreement_results: Dict[str, Any] = {"status": "pending"}
     try:
         df_human = load_human_annotations(HUMAN_ANNOTATIONS_PATH)
+        print(f"  Loaded {len(df_human)} verified human annotations from '{HUMAN_ANNOTATIONS_PATH}'.")
         ex_ids = [str(r).strip() for r in df_human["example_id"]]
         judge_scores = load_llm_judge_scores(ex_ids)
         human_agreement_results = calculate_agreement(df_human, judge_scores)
         print(f"  Human Agreement Calculated successfully on {len(df_human)} examples.")
         print(f"  Exact Match: {human_agreement_results['overall_metrics']['exact_agreement_pct']}% | Kappa: {human_agreement_results['overall_metrics']['overall_weighted_cohens_kappa']}")
-    except Exception as e:
-        print(f"  [Pending Human Review]: {str(e)}")
+    except FileNotFoundError as e:
+        print(f"  [Pending LLM Judge Outputs]: {str(e)}")
         human_agreement_results = {
-            "status": "pending_manual_review",
-            "message": "Human annotations are required before human-vs-LLM agreement can be calculated.",
-            "completed_samples": 0,
+            "status": "pending_llm_judge_outputs",
+            "message": str(e),
+            "completed_samples": len(df_human) if "df_human" in locals() else 0,
+            "target_samples": 40,
+        }
+    except Exception as e:
+        print(f"  [Notice - Human Agreement]: {str(e)}")
+        human_agreement_results = {
+            "status": "pending",
+            "message": str(e),
+            "completed_samples": len(df_human) if "df_human" in locals() else 0,
             "target_samples": 40,
         }
 
@@ -392,19 +448,38 @@ def run_full_evaluation(run_offline_rubric: bool = False, force_llm: bool = Fals
     # -------------------------------------------------------------
     duration_s = round((datetime.now() - start_time).total_seconds(), 2)
 
+    valid_human_count = 0
+    if os.path.exists(HUMAN_ANNOTATIONS_PATH):
+        try:
+            df_h_check = load_human_annotations(HUMAN_ANNOTATIONS_PATH)
+            valid_human_count = len(df_h_check)
+        except Exception:
+            pass
+
     results_data = {
         "timestamp": datetime.now().isoformat(),
         "golden_set_size": n_samples,
+        "golden_set_verification_method": "automated_ai_assisted",
         "golden_set_human_verified_count": verified_count,
+        "human_sample_size": valid_human_count,
+        "human_annotation_status": "complete" if valid_human_count >= 40 else "pending",
+        "judge_type": "llm",
+        "judge_provider": "openai",
+        "judge_model": judge_model_used,
+        "judge_mode": "api" if judge_status == "completed" else "pending_api_key",
+        "judge_status": judge_status,
         "execution_time_seconds": duration_s,
         "leakage_check": leakage_metrics,
         "evaluation_metadata": {
-            "judge_type": "llm" if judge_status == "completed" else "unconfigured",
-            "judge_provider": "openai" if judge_status == "completed" else "none",
-            "judge_model": judge_model_used if judge_status == "completed" else "none",
+            "judge_type": "llm",
+            "judge_provider": "openai",
+            "judge_model": judge_model_used,
+            "judge_mode": "api" if judge_status == "completed" else "pending_api_key",
             "judge_status": judge_status,
-            "human_annotation_status": human_agreement_results.get("status", "pending"),
-            "human_sample_size": 40,
+            "human_annotation_status": "complete" if valid_human_count >= 40 else "pending",
+            "human_sample_size": valid_human_count,
+            "golden_set_size": n_samples,
+            "golden_set_verification_method": "automated_ai_assisted",
             "offline_rubric_included": run_offline_rubric,
         },
         "comparison_table": {

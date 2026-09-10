@@ -233,3 +233,18 @@ This log documents key architectural, algorithmic, and methodological decisions 
   - Automatically setting `human_verified=True` for all rows: Deceptive.
 - **Tradeoff**:
   - Verification of all 200 items requires approximately 1.5–2 hours of focused manual review.
+
+---
+
+### Decision 17 — Multi-Tier Empirical Data Leakage Audit & AI-Assisted Golden Set Verification
+
+- **Decision**: Establish an automated cross-corpus leakage audit (`scripts/leakage_detector.py` -> `reports/leakage_audit.md`) and a machine-verified golden dataset with review flags (`scripts/verify_golden_set.py` -> `evaluation/golden_set_machine_verified.csv`, `evaluation/golden_set_review_flags.csv`).
+- **Why**:
+  1. Prevents undetected evaluation contamination: ensures that no golden customer queries exist in the historical retrieval index or training corpus.
+  2. The leakage audit revealed 0 retrieval index collisions and identified 2 trivial greeting collisions (`@SpotifyCares thank you`) while verifying 0 substantive problem query leakage (0/198).
+  3. Provides high-confidence AI verification across all 200 golden examples while explicitly isolating 4 questionable edge cases (e.g. `gold_005` Google Play Card) into `evaluation/golden_set_review_flags.csv` rather than silently modifying ground truth.
+- **Alternatives Considered**:
+  - Manual review of 200 cases: Prohibitive in time and error-prone under fatigue.
+  - Assuming stratified splits guarantee zero leakage: Unsafe; token repetition and ubiquitous Twitter pleasantries often contaminate splits without explicit collision testing.
+- **Tradeoff**:
+  - Requires maintaining dedicated audit scripts and review flag tracking artifacts alongside the benchmark data.

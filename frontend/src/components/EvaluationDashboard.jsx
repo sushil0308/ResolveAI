@@ -66,7 +66,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
               Golden Set Evaluation Dashboard
             </h2>
             <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '4px' }}>
-              Evaluated across {data.golden_set_size || 200} cases from unseen Test split. Provenance: {data.golden_set_human_verified_count || 0} manually confirmed.
+              Evaluated across {data.golden_set_size || 200} cases (automated AI-assisted verification). {data.human_sample_size || 40} single-blind manual human annotations.
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
@@ -122,16 +122,20 @@ export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:800
         </div>
 
         <div className="kpi-card">
-          <span className="kpi-label">Human vs LLM Judge</span>
-          {hAgr && hAgr.status === 'completed' ? (
+          <span className="kpi-label">Human reviewer vs LLM judge</span>
+          {hAgr && hAgr.status === 'completed' && hAgr.overall_metrics ? (
             <>
               <span className="kpi-value">{hAgr.overall_metrics.exact_agreement_pct}%</span>
               <span className="kpi-subtext">Cohen's &kappa; = {hAgr.overall_metrics.overall_weighted_cohens_kappa} (n={hAgr.sample_size})</span>
             </>
           ) : (
             <>
-              <span className="kpi-value" style={{ fontSize: '16px', color: '#d97706' }}>Pending Review</span>
-              <span className="kpi-subtext">40 manual ratings required</span>
+              <span className="kpi-value" style={{ fontSize: '15px', color: '#d97706' }}>
+                {data.human_annotation_status === 'complete' ? '40 Rated (Pending LLM)' : 'Pending Review'}
+              </span>
+              <span className="kpi-subtext">
+                {data.human_annotation_status === 'complete' ? 'Run with OPENAI_API_KEY' : '40 manual ratings required'}
+              </span>
             </>
           )}
         </div>

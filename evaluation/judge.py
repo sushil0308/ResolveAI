@@ -36,6 +36,24 @@ logger = logging.getLogger("eval_judge")
 GOLDEN_SET_PATH = os.path.join("evaluation", "golden_set.csv")
 JUDGE_CACHE_PATH = os.path.join("evaluation", "judge_outputs.json")
 
+def _load_dotenv():
+    env_path = os.path.join(os.getcwd(), ".env")
+    if os.path.exists(env_path):
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k and k not in os.environ:
+                            os.environ[k] = v
+        except Exception:
+            pass
+
+_load_dotenv()
+
 
 class DimensionScore(BaseModel):
     score: int = Field(..., ge=1, le=5, description="Score on 1-5 integer scale")

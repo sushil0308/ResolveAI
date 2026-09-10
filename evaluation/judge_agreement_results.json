@@ -1,106 +1,22 @@
 {
+  "status": "pending_llm_judge_outputs",
   "sample_size": 40,
-  "total_evaluated_dimensions": 240,
-  "headline_metrics": {
-    "exact_agreement_pct": 90.42,
-    "within_1_point_pct": 100.0,
-    "pearson_correlation": 0.9486,
-    "weighted_cohens_kappa": 0.8677
+  "number_of_human_reviewers": 1,
+  "reviewer_type": "manual human reviewer",
+  "human_annotation_status": "complete",
+  "human_annotations_file": "evaluation/human_annotations.csv",
+  "judge_provider": "openai",
+  "judge_model": "gpt-4o-mini",
+  "judge_status": "pending_api_key",
+  "scientific_integrity_notice": "Old simulated human agreement numbers (90.42%, kappa = 0.8677) derived from synthetic noise scripts have been completely eradicated. Exactly 40 genuine manual human annotations have been collected via single-blind review.",
+  "human_annotations_summary": {
+    "correctness": { "mean": 3.92, "std": 1.05, "median": 4.0 },
+    "groundedness": { "mean": 3.83, "std": 1.17, "median": 4.0 },
+    "relevance": { "mean": 3.85, "std": 1.10, "median": 4.0 },
+    "helpfulness": { "mean": 3.70, "std": 1.09, "median": 4.0 },
+    "brand_consistency": { "mean": 3.88, "std": 0.99, "median": 4.0 },
+    "safety": { "mean": 4.05, "std": 0.93, "median": 4.0 }
   },
-  "per_dimension": {
-    "correctness": {
-      "exact_agreement_pct": 100.0,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 1.0,
-      "mean_human_score": 4.62,
-      "mean_judge_score": 4.62
-    },
-    "groundedness": {
-      "exact_agreement_pct": 82.5,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 0.0,
-      "mean_human_score": 4.83,
-      "mean_judge_score": 5.0
-    },
-    "relevance": {
-      "exact_agreement_pct": 82.5,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 0.882,
-      "mean_human_score": 3.62,
-      "mean_judge_score": 3.6
-    },
-    "helpfulness": {
-      "exact_agreement_pct": 77.5,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 0.758,
-      "mean_human_score": 4.17,
-      "mean_judge_score": 4.4
-    },
-    "brand_consistency": {
-      "exact_agreement_pct": 100.0,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 1.0,
-      "mean_human_score": 5.0,
-      "mean_judge_score": 5.0
-    },
-    "safety_unsupported_claims": {
-      "exact_agreement_pct": 100.0,
-      "within_1_pct": 100.0,
-      "weighted_kappa": 1.0,
-      "mean_human_score": 5.0,
-      "mean_judge_score": 5.0
-    }
-  },
-  "top_disagreements": [
-    {
-      "example_id": "gold_059",
-      "difficulty": "ambiguous_edge",
-      "intent": "subscription_billing",
-      "customer_message": "@SpotifyCares hi Spotify you've sent this link in an email to me to contact you so I'd thought I'd drop you a line. My premium account has been hacked and your customer service is nothing short of atrocious. I hope your night is going better than mine.",
-      "draft_reply": "Hey! We take account security very seriously. Please send us a direct message with your account's email address so we can look backstage and secure your account /SC",
-      "human_overall": 3.83,
-      "judge_overall": 4.17,
-      "abs_diff": 0.34
-    },
-    {
-      "example_id": "gold_133",
-      "difficulty": "ambiguous_edge",
-      "intent": "family_duo_plan",
-      "customer_message": "@user @user @SpotifyCares Our family subscription got cancelled even though we verified our address a week ago. Can you tell us how to rectify this?",
-      "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
-      "human_overall": 4.67,
-      "judge_overall": 5.0,
-      "abs_diff": 0.33
-    },
-    {
-      "example_id": "gold_075",
-      "difficulty": "ambiguous_edge",
-      "intent": "account_security_access",
-      "customer_message": "@SpotifyCares Just signed up for premium during the 99 cent/three month trial. However my username is not right. I know I need to close the account and basically start over, but can I do this while keeping the trial going? Thanks!",
-      "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
-      "human_overall": 4.67,
-      "judge_overall": 5.0,
-      "abs_diff": 0.33
-    },
-    {
-      "example_id": "gold_054",
-      "difficulty": "short_noisy",
-      "intent": "subscription_billing",
-      "customer_message": "@user refund ?",
-      "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
-      "human_overall": 4.83,
-      "judge_overall": 5.0,
-      "abs_diff": 0.17
-    },
-    {
-      "example_id": "gold_131",
-      "difficulty": "short_noisy",
-      "intent": "family_duo_plan",
-      "customer_message": "@SpotifyCares anbody home??!!",
-      "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
-      "human_overall": 4.33,
-      "judge_overall": 4.5,
-      "abs_diff": 0.17
-    }
-  ]
+  "overall_metrics": null,
+  "per_dimension_agreement": null
 }
