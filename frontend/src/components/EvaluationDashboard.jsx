@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function EvaluationDashboard({ apiBaseUrl = "http://localhost:8000" }) {
+export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-backend-nsws.onrender.com" }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

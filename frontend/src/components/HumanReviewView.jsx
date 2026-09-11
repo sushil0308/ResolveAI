@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function HumanReviewView({ apiBaseUrl = "http://localhost:8000" }) {
+export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backend-nsws.onrender.com" }) {
   const [cases, setCases] = useState([]);
   const [annotations, setAnnotations] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);

@@ -28,7 +28,7 @@ const SAMPLES = [
   }
 ];
 
-export default function AgentCopilot({ apiBaseUrl = "http://localhost:8000" }) {
+export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-nsws.onrender.com" }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);

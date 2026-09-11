@@ -2,7 +2,9 @@
 
 ResolveAI is a customer support copilot I built around the Kaggle *Customer Support on Twitter* dataset. It takes an incoming customer message, predicts what the user needs, retrieves similar historical resolutions, drafts a grounded reply, and decides whether the ticket can be handled automatically or should be escalated to a human agent.
 
-**Live Demo:** https://fifty-drinks-charitable-phantom.trycloudflare.com  
+**Live Frontend (Vercel):** https://frontend-nine-beta-46.vercel.app  
+**Live Backend API (Render):** https://resolveai-backend-nsws.onrender.com  
+**Health Check:** https://resolveai-backend-nsws.onrender.com/api/health  
 **Repository:** https://github.com/sushil0308/ResolveAI  
 
 ---
@@ -285,7 +287,7 @@ If I had another week to work on ResolveAI, here are the 5 practical engineering
 - **Frontend:** React 19, Vite 8, Vanilla CSS (custom design system with dark mode and zero framework bloat)
 - **LLM Integration:** Google Gemini API (`gemini-3.7-flash`)
 - **Dataset:** Kaggle *Customer Support on Twitter* (`thoughtvector/customer-support-on-twitter`, `@SpotifyCares` slice: 28,477 pairs)
-- **Deployment:** Cloudflare Quick Tunnel (public HTTPS), Render Blueprint (`render.yaml`), Vercel SPA (`vercel.json`)
+- **Deployment:** Render Web Service (FastAPI persistent backend), Vercel (React Vite SPA persistent frontend), Render Blueprint (`render.yaml`), Vercel SPA (`vercel.json`)
 - **Testing:** Custom evaluation suite (`evaluation/run.py`), Pytest/unittest (`tests/test_agent.py`)
 
 ---

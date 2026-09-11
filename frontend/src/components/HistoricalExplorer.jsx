@@ -14,7 +14,7 @@ const INTENT_OPTIONS = [
   { value: "feedback_feature_request", label: "Feedback & Suggestions" },
 ];
 
-export default function HistoricalExplorer({ apiBaseUrl = "http://localhost:8000" }) {
+export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-backend-nsws.onrender.com" }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIntent, setSelectedIntent] = useState("");
   const [results, setResults] = useState([]);
