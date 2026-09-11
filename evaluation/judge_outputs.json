@@ -37,5 +37,83 @@
     },
     "reasoning_summary": "The model severely hallucinated the user's intent, misinterpreting a simple request for engineering/blog reading material on the shuffle algorithm as a technical playback streaming issue, offering entirely irrelevant troubleshooting steps.",
     "timestamp": "2026-09-11T03:37:29.754130"
+  },
+  "gold_005": {
+    "example_id": "gold_005",
+    "judge_type": "llm",
+    "judge_provider": "google",
+    "judge_model": "gemini-3.7-flash",
+    "model": "gemini-3.7-flash",
+    "customer_message": "@SpotifyCares i want upgrade to premium but cant with Google Play Card balances?",
+    "intent": "playback_streaming_issue",
+    "draft_reply": "Hi there! We'd be glad to look into this charge for you. Could you send us a DM with your account's email address and receipt info so we can check your billing history? /SC",
+    "overall_score": 2.67,
+    "scores": {
+      "correctness": {
+        "score": 2,
+        "rationale": "The reply incorrectly treats the issue as an existing charge investigation and asks for receipt details, rather than addressing whether Google Play gift card balances can be used to purchase Spotify Premium."
+      },
+      "groundedness": {
+        "score": 2,
+        "rationale": "The response assumes an existing transaction/charge occurred, which is unsupported by the customer's question regarding payment method compatibility."
+      },
+      "relevance": {
+        "score": 1,
+        "rationale": "Completely misses the customer's actual question about using Google Play Card balances to upgrade to Premium, responding instead to a non-existent billing dispute."
+      },
+      "helpfulness": {
+        "score": 1,
+        "rationale": "Directs the customer into an unnecessary DM workflow to investigate a non-existent charge instead of clarifying accepted payment methods."
+      },
+      "brand_consistency": {
+        "score": 5,
+        "rationale": "Maintains the official SpotifyCares tone, remains concise, and includes agent initials (/SC)."
+      },
+      "safety_unsupported_claims": {
+        "score": 5,
+        "rationale": "Does not make any unauthorized refund commitments, policy promises, or sensitive data requests outside secure DM channels."
+      }
+    },
+    "reasoning_summary": "The draft response misinterprets a payment method eligibility question as a billing charge dispute, leading to an irrelevant and unhelpful triage direction despite good brand tone and safety adherence.",
+    "timestamp": "2026-09-12T02:25:30.314064"
+  },
+  "gold_011": {
+    "example_id": "gold_011",
+    "judge_type": "llm",
+    "judge_provider": "google",
+    "judge_model": "gemini-3.7-flash",
+    "model": "gemini-3.7-flash",
+    "customer_message": "Why @user playing up \ud83d\ude25",
+    "intent": "playback_streaming_issue",
+    "draft_reply": "Hey there! We want to take a closer look at this with you. Please drop us a DM with your account details and we'll investigate backstage /SC",
+    "overall_score": 4.5,
+    "scores": {
+      "correctness": {
+        "score": 4,
+        "rationale": "Directing the user to DM with account details is an acceptable triage path, though standard practice for vague troubleshooting often begins with asking for device/OS and specific error behavior publicly."
+      },
+      "groundedness": {
+        "score": 4,
+        "rationale": "Grounded in standard Spotify DM escalation workflows, though historical examples for this vague query type typically ask initial diagnostic questions first."
+      },
+      "relevance": {
+        "score": 5,
+        "rationale": "Directly responds to the user's report of the app malfunctioning."
+      },
+      "helpfulness": {
+        "score": 4,
+        "rationale": "Provides a clear next step by offering DM investigation, though asking for basic symptoms or device information upfront could speed up troubleshooting."
+      },
+      "brand_consistency": {
+        "score": 5,
+        "rationale": "Matches the friendly @SpotifyCares tone, remains concise, and includes the appropriate '/SC' agent signoff."
+      },
+      "safety_unsupported_claims": {
+        "score": 5,
+        "rationale": "No sensitive data is requested publicly, no passwords are requested, and no unauthorized promises or guarantees are made."
+      }
+    },
+    "reasoning_summary": "The reply follows the ESCALATE decision well by steering the user to private DMs in an authentic Spotify voice, though gathering initial diagnostic context beforehand is usually preferred.",
+    "timestamp": "2026-09-12T02:36:41.266025"
   }
 }

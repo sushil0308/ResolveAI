@@ -10,8 +10,11 @@
 ## 1. Provenance Statement & Integrity Declaration
 
 > **Scientific Integrity Notice**:  
-> The 200-example Golden Evaluation Set is a **curated 200-example evaluation set with automated/AI-assisted verification**.  
-> It is **NOT** claimed to be "200 hand-labelled examples". Human verification in this repository is strictly restricted to the **40 representative single-blind human annotations** manually recorded in `evaluation/human_annotations.csv`.
+> The 200-example Golden Evaluation Set (`evaluation/golden_set.csv`) is an isolated **200-example evaluation benchmark** drawn strictly from the unseen Test partition, uniformly stratified across 10 intent classes (20 per class) and 3 difficulty tiers.  
+> It is **NOT** falsely claimed to be "200 hand-labelled examples":
+> - **Genuinely Hand-Labelled**: 40 interactions have been manually rated via single-blind review in `evaluation/human_annotations.csv` (100% complete).
+> - **Automated AI-Assisted Verification**: 160 interactions were curated and verified via model ensemble inspection (`evaluation/golden_set_machine_verified.csv`) with `human_verified = False`.
+> - **Compliance Gap to 100% Hand-Labelled Standard**: Exactly 160 additional manual annotations are required to reach the target of 200 hand-labelled cases (~3–4 hours manual review). Per strict scientific integrity rules, machine-verified labels are never falsely renamed as human-labelled.
 
 ---
 

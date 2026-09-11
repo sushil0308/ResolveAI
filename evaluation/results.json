@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-11T04:10:34.299119",
+  "timestamp": "2026-09-12T02:39:02.250073",
   "golden_set_size": 200,
   "golden_set_verification_method": "automated_ai_assisted",
   "golden_set_human_verified_count": 0,
@@ -10,7 +10,7 @@
   "judge_model": "gemini-3.7-flash",
   "judge_mode": "api",
   "judge_status": "api_error",
-  "execution_time_seconds": 13.81,
+  "execution_time_seconds": 245.07,
   "leakage_check": {
     "status": "passed",
     "exact_raw_overlap": 0,
@@ -81,17 +81,179 @@
   },
   "reply_quality": {
     "status": "api_error",
-    "error": "Google Gemini Daily Quota Exceeded (429): {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.7-flash\\nPlease retry in 26.223361361s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-3.7-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"26s\"\n      }\n    ]\n  }\n}\n\nGoogle AI Studio Free Tier has reached the daily limit (20 requests/day). Per evaluation integrity rules, evaluation stops without fallback.",
+    "error": "Google Gemini API error (503): {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
     "judge_type": "llm",
     "judge_provider": "google",
-    "judge_model": "gemini-3.7-flash"
+    "judge_model": "gemini-3.7-flash",
+    "completed_evaluations_count": 2,
+    "total_cases": 200,
+    "partial_completed_summary": {
+      "evaluated_cases": 2,
+      "mean_overall": 3.58,
+      "dimensions": {
+        "correctness": {
+          "mean": 3.0,
+          "median": 3,
+          "std": 1.0,
+          "distribution": {
+            "1": 0,
+            "2": 1,
+            "3": 0,
+            "4": 1,
+            "5": 0
+          }
+        },
+        "groundedness": {
+          "mean": 3.0,
+          "median": 3,
+          "std": 1.0,
+          "distribution": {
+            "1": 0,
+            "2": 1,
+            "3": 0,
+            "4": 1,
+            "5": 0
+          }
+        },
+        "relevance": {
+          "mean": 3.0,
+          "median": 3,
+          "std": 2.0,
+          "distribution": {
+            "1": 1,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 1
+          }
+        },
+        "helpfulness": {
+          "mean": 2.5,
+          "median": 2,
+          "std": 1.5,
+          "distribution": {
+            "1": 1,
+            "2": 0,
+            "3": 0,
+            "4": 1,
+            "5": 0
+          }
+        },
+        "brand_consistency": {
+          "mean": 5.0,
+          "median": 5,
+          "std": 0.0,
+          "distribution": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 2
+          }
+        },
+        "safety_unsupported_claims": {
+          "mean": 5.0,
+          "median": 5,
+          "std": 0.0,
+          "distribution": {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 2
+          }
+        }
+      }
+    }
   },
   "offline_rubric_sanity_check": null,
   "human_agreement": {
-    "status": "pending",
-    "message": "Missing LLM judge scores for 40 sample examples: ['gold_042', 'gold_170', 'gold_127', 'gold_088', 'gold_070']...\nEnsure the LLM judge has evaluated all sample examples.",
-    "completed_samples": 40,
-    "target_samples": 40
+    "status": "partial",
+    "sample_size": 40,
+    "evaluated_sample_size": 2,
+    "target_human_sample_size": 40,
+    "number_of_human_reviewers": 1,
+    "reviewer_type": "manual human reviewer",
+    "judge_type": "LLM judge (Google Gemini - gemini-3.7-flash)",
+    "judge_provider": "google",
+    "judge_model": "gemini-3.7-flash",
+    "evaluation_protocol": "Independent blind manual annotation (reviewer blinded to LLM scores)",
+    "overall_metrics": {
+      "exact_agreement_pct": 16.67,
+      "within_1_point_pct": 58.33,
+      "macro_exact_agreement_pct": 16.67,
+      "pearson_correlation": 0.3055,
+      "overall_weighted_cohens_kappa": 0.2771,
+      "macro_weighted_cohens_kappa": 0.1667
+    },
+    "per_dimension_agreement": {
+      "correctness": {
+        "exact_agreement_pct": 50.0,
+        "within_1_point_pct": 50.0,
+        "pearson_r": 0.0,
+        "pearson_p_value": 0.0,
+        "weighted_cohens_kappa": 0.0,
+        "human_mean": 4.0,
+        "judge_mean": 3.0,
+        "human_std": 0.0,
+        "judge_std": 1.0
+      },
+      "groundedness": {
+        "exact_agreement_pct": 0.0,
+        "within_1_point_pct": 50.0,
+        "pearson_r": 1.0,
+        "pearson_p_value": 1.0,
+        "weighted_cohens_kappa": 0.3333,
+        "human_mean": 4.5,
+        "judge_mean": 3.0,
+        "human_std": 0.5,
+        "judge_std": 1.0
+      },
+      "relevance": {
+        "exact_agreement_pct": 0.0,
+        "within_1_point_pct": 50.0,
+        "pearson_r": 0.0,
+        "pearson_p_value": 0.0,
+        "weighted_cohens_kappa": 0.0,
+        "human_mean": 2.0,
+        "judge_mean": 3.0,
+        "human_std": 0.0,
+        "judge_std": 2.0
+      },
+      "helpfulness": {
+        "exact_agreement_pct": 0.0,
+        "within_1_point_pct": 50.0,
+        "pearson_r": 1.0,
+        "pearson_p_value": 1.0,
+        "weighted_cohens_kappa": 0.6667,
+        "human_mean": 4.0,
+        "judge_mean": 2.5,
+        "human_std": 1.0,
+        "judge_std": 1.5
+      },
+      "brand_consistency": {
+        "exact_agreement_pct": 50.0,
+        "within_1_point_pct": 50.0,
+        "pearson_r": 0.0,
+        "pearson_p_value": 0.0,
+        "weighted_cohens_kappa": 0.0,
+        "human_mean": 4.0,
+        "judge_mean": 5.0,
+        "human_std": 1.0,
+        "judge_std": 0.0
+      },
+      "safety": {
+        "exact_agreement_pct": 0.0,
+        "within_1_point_pct": 100.0,
+        "pearson_r": 0.0,
+        "pearson_p_value": 0.0,
+        "weighted_cohens_kappa": 0.0,
+        "human_mean": 4.0,
+        "judge_mean": 5.0,
+        "human_std": 0.0,
+        "judge_std": 0.0
+      }
+    }
   },
   "main_intent_detailed": {
     "model_name": "Main System: Hybrid Calibrated Agent",

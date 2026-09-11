@@ -31,7 +31,7 @@ export default function AboutView() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
           <p>
-            While our main intent classifier achieves <strong>61.0% Accuracy (59.9% Macro F1)</strong> and our reply quality judge reports <strong>4.63 / 5</strong>, an experienced engineer must scrutinize what these numbers do and do not represent:
+            While our main intent classifier achieves <strong>61.0% Accuracy (59.9% Macro F1)</strong> and our escalation safety gate achieves a <strong>4.76% False Auto-Handling Rate</strong>, an experienced engineer must scrutinize what headline benchmarks do and do not represent:
           </p>
 
           <ol style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -58,6 +58,10 @@ export default function AboutView() {
             <li>
               <strong>6. LLM Judge Scores as an Evaluator Proxy</strong>:
               LLM-as-a-judge scores provide scalable evaluation signal but have inherent model preferences (e.g. verbosity, formatting). They must never be conflated with absolute ground truth or human consensus.
+            </li>
+            <li>
+              <strong>7. Human Agreement Reflects a Single Human Reviewer</strong>:
+              Our 40-case manual annotation set was evaluated by a single human reviewer ($N = 1$). While single-blind and rigorous, it reflects the subjective standard of one annotator rather than a multi-annotator crowd consensus or inter-annotator Fleiss' kappa.
             </li>
           </ol>
         </div>

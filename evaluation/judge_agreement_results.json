@@ -1,22 +1,88 @@
 {
-  "status": "pending_llm_judge_outputs",
+  "status": "partial",
   "sample_size": 40,
+  "evaluated_sample_size": 2,
+  "target_human_sample_size": 40,
   "number_of_human_reviewers": 1,
   "reviewer_type": "manual human reviewer",
-  "human_annotation_status": "complete",
-  "human_annotations_file": "evaluation/human_annotations.csv",
-  "judge_provider": "openai",
-  "judge_model": "gpt-4o-mini",
-  "judge_status": "pending_api_key",
-  "scientific_integrity_notice": "Old simulated human agreement numbers (90.42%, kappa = 0.8677) derived from synthetic noise scripts have been completely eradicated. Exactly 40 genuine manual human annotations have been collected via single-blind review.",
-  "human_annotations_summary": {
-    "correctness": { "mean": 3.92, "std": 1.05, "median": 4.0 },
-    "groundedness": { "mean": 3.83, "std": 1.17, "median": 4.0 },
-    "relevance": { "mean": 3.85, "std": 1.10, "median": 4.0 },
-    "helpfulness": { "mean": 3.70, "std": 1.09, "median": 4.0 },
-    "brand_consistency": { "mean": 3.88, "std": 0.99, "median": 4.0 },
-    "safety": { "mean": 4.05, "std": 0.93, "median": 4.0 }
+  "judge_type": "LLM judge (Google Gemini - gemini-3.7-flash)",
+  "judge_provider": "google",
+  "judge_model": "gemini-3.7-flash",
+  "evaluation_protocol": "Independent blind manual annotation (reviewer blinded to LLM scores)",
+  "overall_metrics": {
+    "exact_agreement_pct": 16.67,
+    "within_1_point_pct": 58.33,
+    "macro_exact_agreement_pct": 16.67,
+    "pearson_correlation": 0.3055,
+    "overall_weighted_cohens_kappa": 0.2771,
+    "macro_weighted_cohens_kappa": 0.1667
   },
-  "overall_metrics": null,
-  "per_dimension_agreement": null
+  "per_dimension_agreement": {
+    "correctness": {
+      "exact_agreement_pct": 50.0,
+      "within_1_point_pct": 50.0,
+      "pearson_r": 0.0,
+      "pearson_p_value": 0.0,
+      "weighted_cohens_kappa": 0.0,
+      "human_mean": 4.0,
+      "judge_mean": 3.0,
+      "human_std": 0.0,
+      "judge_std": 1.0
+    },
+    "groundedness": {
+      "exact_agreement_pct": 0.0,
+      "within_1_point_pct": 50.0,
+      "pearson_r": 1.0,
+      "pearson_p_value": 1.0,
+      "weighted_cohens_kappa": 0.3333,
+      "human_mean": 4.5,
+      "judge_mean": 3.0,
+      "human_std": 0.5,
+      "judge_std": 1.0
+    },
+    "relevance": {
+      "exact_agreement_pct": 0.0,
+      "within_1_point_pct": 50.0,
+      "pearson_r": 0.0,
+      "pearson_p_value": 0.0,
+      "weighted_cohens_kappa": 0.0,
+      "human_mean": 2.0,
+      "judge_mean": 3.0,
+      "human_std": 0.0,
+      "judge_std": 2.0
+    },
+    "helpfulness": {
+      "exact_agreement_pct": 0.0,
+      "within_1_point_pct": 50.0,
+      "pearson_r": 1.0,
+      "pearson_p_value": 1.0,
+      "weighted_cohens_kappa": 0.6667,
+      "human_mean": 4.0,
+      "judge_mean": 2.5,
+      "human_std": 1.0,
+      "judge_std": 1.5
+    },
+    "brand_consistency": {
+      "exact_agreement_pct": 50.0,
+      "within_1_point_pct": 50.0,
+      "pearson_r": 0.0,
+      "pearson_p_value": 0.0,
+      "weighted_cohens_kappa": 0.0,
+      "human_mean": 4.0,
+      "judge_mean": 5.0,
+      "human_std": 1.0,
+      "judge_std": 0.0
+    },
+    "safety": {
+      "exact_agreement_pct": 0.0,
+      "within_1_point_pct": 100.0,
+      "pearson_r": 0.0,
+      "pearson_p_value": 0.0,
+      "weighted_cohens_kappa": 0.0,
+      "human_mean": 4.0,
+      "judge_mean": 5.0,
+      "human_std": 0.0,
+      "judge_std": 0.0
+    }
+  }
 }

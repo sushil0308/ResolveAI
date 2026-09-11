@@ -1,9 +1,11 @@
-# Human vs LLM Judge Agreement Report
+# Empirical Agreement Report: Manual Human Reviewer vs LLM Judge
 
-## Executive Summary
-This report analyzes agreement between human expert evaluations and the LLM/Rubric Judge across **40 representative support interactions** evaluated on 6 core quality dimensions (240 individual dimension scores).
-
-The study demonstrates **substantial inter-annotator reliability** without inflating metrics, reporting both exact matches and nuanced edge-case disagreements.
+**Evaluation Date**: 2026-09-12T02:39:02.218500  
+**Evaluated Sample Size**: 2 Interactions (Partial)  
+**Target Sample Size**: 40 Interactions  
+**Reviewer Type**: manual human reviewer (Independent & Blinded)  
+**Judge Type**: LLM judge (Google Gemini - gemini-3.7-flash)  
+**Protocol**: Single-blind evaluation (human reviewer had zero access to LLM scores during rating)  
 
 ---
 
@@ -11,39 +13,29 @@ The study demonstrates **substantial inter-annotator reliability** without infla
 
 | Agreement Metric | Measured Value | Standard Interpretation |
 | :--- | :--- | :--- |
-| **Status** | **Pending Live API Run** | Awaiting `OPENAI_API_KEY` for live GPT-4o-mini judge |
-| **Human Sample Size** | **40 Real Cases** | Manually rated in `evaluation/human_annotations.csv` |
-| **Notice** | **Simulated Ratings Purged** | Old synthetic scores (90.42%, κ = 0.8677) permanently deleted |
+| **Exact Agreement** | **16.67%** | Ratings match identically on the 1–5 integer scale |
+| **Within-1-Point Agreement** | **58.33%** | Ratings differ by at most ±1 scale point |
+| **Pearson Correlation ($r$)** | **0.3055** | Linear alignment of ranking and relative severity |
+| **Overall Weighted Cohen's $\kappa$** | **0.2771** | Quadratic inter-rater agreement adjusted for chance |
+| **Macro Average $\kappa$** | **0.1667** | Mean Cohen's $\kappa$ across all 6 dimensions |
 
 ---
 
-## 2. Per-Dimension Performance Breakdown
+## 2. Per-Dimension Breakdown
 
-| Dimension | Exact Match (%) | Within-1-Point (%) | Weighted Kappa ($\kappa$) | Mean Human Score | Mean Judge Score |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Correctness** | 100.0% | 100.0% | 1.0 | 4.62 | 4.62 |
-| **Groundedness** | 82.5% | 100.0% | 0.0 | 4.83 | 5.0 |
-| **Relevance** | 82.5% | 100.0% | 0.882 | 3.62 | 3.6 |
-| **Helpfulness** | 77.5% | 100.0% | 0.758 | 4.17 | 4.4 |
-| **Brand Consistency** | 100.0% | 100.0% | 1.0 | 5.0 | 5.0 |
-| **Safety Unsupported Claims** | 100.0% | 100.0% | 1.0 | 5.0 | 5.0 |
-
----
-
-## 3. Disagreement Analysis & Failure Modes
-
-When the Human Expert and Judge diverged, disagreements clustered around two predictable operational phenomena:
-
-### Phenomenon A: Over-Rewarding Generic Troubleshooting on Slang Queries
-- **Observed Case**: On short, slang-heavy complaints (e.g. *"y tf is shuffle not shufflin"*), the automated judge rewarded the standard clean-reinstall script with 5/5 for Helpfulness and Correctness because it matched historical playbooks.
-- **Human Perspective**: The human expert assigned 4/5, noting that telling an agitated customer to perform a 10-minute clean reinstall without first checking whether their Repeat button is toggled on can increase customer friction.
-
-### Phenomenon B: Compound Ambiguous Queries
-- **Observed Case**: When a customer query referenced both an offline download error and an app freeze simultaneously, the judge evaluated relevance solely against the top predicted intent.
-- **Human Perspective**: The human expert marked Relevance as 4/5 because the reply addressed only the offline storage aspect while omitting the app crash symptom.
+| Dimension | Exact Match | Within ±1 | Pearson $r$ | Quadratic $\kappa$ | Human Mean | Judge Mean |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Correctness** | 50.0% | 50.0% | 0.0 | 0.0 | 4.0 | 3.0 |
+| **Groundedness** | 0.0% | 50.0% | 1.0 | 0.3333 | 4.5 | 3.0 |
+| **Relevance** | 0.0% | 50.0% | 0.0 | 0.0 | 2.0 | 3.0 |
+| **Helpfulness** | 0.0% | 50.0% | 1.0 | 0.6667 | 4.0 | 2.5 |
+| **Brand Consistency** | 50.0% | 50.0% | 0.0 | 0.0 | 4.0 | 5.0 |
+| **Safety** | 0.0% | 100.0% | 0.0 | 0.0 | 4.0 | 5.0 |
 
 ---
 
-## 4. Judge Limitations & Safeguards
-1. **Length Bias**: Automated evaluators have a known tendency to perceive longer replies as more helpful. Our rubric counters this by penalizing verbosity exceeding 280 characters.
-2. **Context Blindness**: The judge evaluates the current turn in isolation; it cannot assess whether previous unrecorded turns in private DM already covered basic troubleshooting steps.
+## 3. Scientific Integrity & Methodology Notes
+
+1. **No Synthetic / Simulated Data**: Unlike automated scripts that generate synthetic 'human' scores by adding noise to judge outputs, this report is generated strictly from real manual annotations recorded in `evaluation/human_annotations.csv`.
+2. **Blind Review Guarantee**: The human reviewer annotated customer inquiries without viewing model confidence, automated judge scores, or ground truth labels.
+3. **Reproducibility**: The aligned pairs are saved in `evaluation/human_judge_sample.csv` for independent auditing.
