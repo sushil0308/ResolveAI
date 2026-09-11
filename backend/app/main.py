@@ -21,11 +21,12 @@ app = FastAPI(
 # Configure CORS: allow all origins by default or specific comma-separated origins from environment
 cors_origins_raw = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
 allowed_origins = [orig.strip() for orig in cors_origins_raw.split(",") if orig.strip()] or ["*"]
+is_wildcard = "*" in allowed_origins
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins if "*" not in allowed_origins else ["*"],
-    allow_credentials=True,
+    allow_origins=allowed_origins if not is_wildcard else ["*"],
+    allow_credentials=False if is_wildcard else True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
