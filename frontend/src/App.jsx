@@ -8,7 +8,12 @@ import AboutView from './components/AboutView';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("agent");
-  const apiBaseUrl = "http://localhost:8000";
+  const apiBaseUrl =
+    import.meta.env.VITE_API_BASE_URL !== undefined
+      ? import.meta.env.VITE_API_BASE_URL
+      : (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+        ? "http://localhost:8000"
+        : "");
 
   const renderActiveView = () => {
     switch (activeTab) {
