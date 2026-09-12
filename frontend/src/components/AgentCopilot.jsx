@@ -162,9 +162,9 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
 
       {/* Structured Result Display */}
       {result && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '20px' }}>
-          {/* Column 1: Intent & Escalation Decisions (5 cols) */}
-          <div style={{ gridColumn: 'span 5', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="copilot-layout-grid">
+          {/* Column 1: Intent & Escalation Decisions (5 cols on desktop, full width on mobile) */}
+          <div className="copilot-col-side">
             {/* Intent Card */}
             <div className="card">
               <div className="card-header">
@@ -242,8 +242,8 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
             </div>
           </div>
 
-          {/* Column 2: Draft Reply & Grounded Evidence (7 cols) */}
-          <div style={{ gridColumn: 'span 7', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* Column 2: Draft Reply & Grounded Evidence (7 cols on desktop, full width on mobile) */}
+          <div className="copilot-col-main">
             {/* Draft Reply Card */}
             <div className="card">
               <div className="card-header">
@@ -253,7 +253,7 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
                     Type: {result.resolution_type} (Grounding: {(result.grounding_confidence * 100).toFixed(0)}%)
                   </p>
                 </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   <button
                     id="copy-reply-btn"
                     className="btn btn-secondary"
@@ -287,7 +287,7 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
                 {result.draft_reply}
               </div>
 
-              <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)' }}>
+              <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: 'var(--text-muted)', flexWrap: 'wrap', gap: '4px' }}>
                 <span>Brand: Spotify Support Tone</span>
                 <span>{result.draft_reply.length} / 280 chars</span>
               </div>
@@ -326,9 +326,11 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
                           alignItems: 'center',
                           cursor: 'pointer',
                           fontSize: '13px',
+                          flexWrap: 'wrap',
+                          gap: '8px',
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                           <span style={{
                             fontSize: '11px',
                             fontWeight: 700,
@@ -346,10 +348,11 @@ export default function AgentCopilot({ apiBaseUrl = "https://resolveai-backend-n
                             {c.intent || "general"}
                           </span>
                         </div>
-                        <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                        <span style={{ fontSize: '12px', color: 'var(--text-muted)', marginLeft: 'auto' }}>
                           {expandedEvidence[idx] ? "▲ Collapse" : "▼ View"}
                         </span>
                       </div>
+
 
                       {expandedEvidence[idx] && (
                         <div style={{ padding: '14px', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px', backgroundColor: '#ffffff' }}>

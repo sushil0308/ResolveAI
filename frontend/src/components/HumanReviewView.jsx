@@ -210,7 +210,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
 
       {/* Progress Chips Selector */}
       <div className="card" style={{ padding: '14px 18px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
           <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>
             Review Sample Navigation: Case {currentIndex + 1} of {cases.length} ({current.example_id})
           </span>
@@ -220,7 +220,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
               type="text"
               value={reviewerName}
               onChange={(e) => setReviewerName(e.target.value)}
-              style={{ padding: '3px 8px', fontSize: '12px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
+              style={{ padding: '4px 8px', fontSize: '12px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
             />
           </div>
         </div>
@@ -234,7 +234,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
                 key={c.example_id}
                 onClick={() => loadCase(i)}
                 style={{
-                  padding: '4px 8px',
+                  padding: '5px 9px',
                   fontSize: '11px',
                   fontWeight: 600,
                   borderRadius: '6px',
@@ -242,6 +242,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
                   backgroundColor: isSelected ? '#ecfdf5' : done ? '#f1f5f9' : '#ffffff',
                   color: isSelected ? '#065f46' : done ? '#0f172a' : '#94a3b8',
                   cursor: 'pointer',
+                  minWidth: '28px',
                 }}
               >
                 {done ? '✓ ' : ''}{i + 1}
@@ -252,7 +253,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
       </div>
 
       {/* Interaction Details & Rating Workspace */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '20px' }}>
+      <div className="review-layout-grid">
         {/* Left Column: Context (Blind to LLM scores) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* Customer Tweet */}
@@ -274,7 +275,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
                 {current.escalation_decision}
               </span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '8px', fontSize: '13px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '10px', marginTop: '8px', fontSize: '13px' }}>
               <div>
                 <strong style={{ color: 'var(--text-muted)' }}>Predicted Intent:</strong>
                 <p style={{ fontFamily: 'var(--font-mono)', marginTop: '2px', color: 'var(--brand-green)', fontWeight: 600 }}>
@@ -359,13 +360,14 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
                         onClick={() => handleScoreChange(dim.key, val)}
                         style={{
                           flex: 1,
-                          padding: '6px 0',
+                          padding: '8px 0',
+                          minHeight: '38px',
                           borderRadius: '6px',
                           border: currentScore === val ? '2px solid var(--brand-green)' : '1px solid #cbd5e1',
                           backgroundColor: currentScore === val ? 'var(--brand-green)' : '#ffffff',
                           color: currentScore === val ? '#ffffff' : '#334155',
                           fontWeight: 700,
-                          fontSize: '12.5px',
+                          fontSize: '13px',
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
                         }}
@@ -378,6 +380,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
               );
             })}
           </div>
+
 
           {/* Reviewer Comment */}
           <div>
@@ -414,7 +417,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
               <button
                 type="button"
                 className="btn btn-secondary"
-                style={{ flex: 1 }}
+                style={{ flex: 1, minHeight: '42px' }}
                 disabled={currentIndex === 0}
                 onClick={() => loadCase(currentIndex - 1)}
               >
@@ -424,7 +427,7 @@ export default function HumanReviewView({ apiBaseUrl = "https://resolveai-backen
               <button
                 type="button"
                 className="btn btn-primary"
-                style={{ flex: 2 }}
+                style={{ flex: 2, minHeight: '42px' }}
                 disabled={saving || !isCurrentComplete()}
                 onClick={() => handleSave(true)}
               >

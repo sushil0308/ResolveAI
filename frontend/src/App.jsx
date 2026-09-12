@@ -8,12 +8,18 @@ import AboutView from './components/AboutView';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("agent");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const apiBaseUrl =
     (import.meta.env.VITE_API_BASE_URL !== undefined && import.meta.env.VITE_API_BASE_URL !== "")
       ? import.meta.env.VITE_API_BASE_URL
       : (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
         ? "http://localhost:8000"
         : "https://resolveai-backend-nsws.onrender.com");
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setMobileMenuOpen(false);
+  };
 
   const renderActiveView = () => {
     switch (activeTab) {
@@ -57,18 +63,25 @@ export default function App() {
 
   return (
     <div className="app-container">
+      {/* Mobile Drawer Overlay */}
+      <div
+        className={`sidebar-overlay ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+
       {/* Sidebar Navigation */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
         <div
           className="sidebar-brand"
-          onClick={() => setActiveTab("agent")}
+          onClick={() => handleTabChange("agent")}
           role="button"
           tabIndex={0}
           title="Return to Agent Copilot (Home)"
           style={{ cursor: "pointer" }}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
-              setActiveTab("agent");
+              handleTabChange("agent");
             }
           }}
         >
@@ -77,13 +90,24 @@ export default function App() {
             <div className="sidebar-title">ResolveAI Copilot</div>
             <div className="sidebar-subtitle">@SpotifyCares Copilot</div>
           </div>
+          <button
+            className="mobile-close-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMobileMenuOpen(false);
+            }}
+            aria-label="Close navigation menu"
+            title="Close navigation"
+          >
+            ✕
+          </button>
         </div>
 
         <nav className="sidebar-nav">
           <button
             id="nav-agent"
             className={`nav-item ${activeTab === "agent" ? "active" : ""}`}
-            onClick={() => setActiveTab("agent")}
+            onClick={() => handleTabChange("agent")}
           >
             <span>💬</span> Agent Copilot
           </button>
@@ -91,7 +115,7 @@ export default function App() {
           <button
             id="nav-evaluation"
             className={`nav-item ${activeTab === "evaluation" ? "active" : ""}`}
-            onClick={() => setActiveTab("evaluation")}
+            onClick={() => handleTabChange("evaluation")}
           >
             <span>📊</span> Evaluation & Baselines
           </button>
@@ -99,7 +123,7 @@ export default function App() {
           <button
             id="nav-review"
             className={`nav-item ${activeTab === "review" ? "active" : ""}`}
-            onClick={() => setActiveTab("review")}
+            onClick={() => handleTabChange("review")}
           >
             <span>✍️</span> Human Review
           </button>
@@ -107,7 +131,7 @@ export default function App() {
           <button
             id="nav-historical"
             className={`nav-item ${activeTab === "historical" ? "active" : ""}`}
-            onClick={() => setActiveTab("historical")}
+            onClick={() => handleTabChange("historical")}
           >
             <span>🔍</span> Historical Cases
           </button>
@@ -115,7 +139,7 @@ export default function App() {
           <button
             id="nav-analytics"
             className={`nav-item ${activeTab === "analytics" ? "active" : ""}`}
-            onClick={() => setActiveTab("analytics")}
+            onClick={() => handleTabChange("analytics")}
           >
             <span>📈</span> Analytics Telemetry
           </button>
@@ -123,7 +147,7 @@ export default function App() {
           <button
             id="nav-about"
             className={`nav-item ${activeTab === "about" ? "active" : ""}`}
-            onClick={() => setActiveTab("about")}
+            onClick={() => handleTabChange("about")}
           >
             <span>ℹ️</span> System Architecture
           </button>
@@ -143,9 +167,20 @@ export default function App() {
       {/* Main Workspace */}
       <main className="main-content">
         <header className="top-header">
-          <div className="header-title-block">
-            <h1>{pageInfo.title}</h1>
-            <p>{pageInfo.subtitle}</p>
+          <div className="header-left-wrap">
+            <button
+              id="mobile-menu-btn"
+              className="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open navigation menu"
+              title="Open Navigation"
+            >
+              ☰
+            </button>
+            <div className="header-title-block">
+              <h1>{pageInfo.title}</h1>
+              <p>{pageInfo.subtitle}</p>
+            </div>
           </div>
           <div className="header-meta">
             <span className="meta-pill">Brand: SpotifyCares</span>
@@ -160,3 +195,4 @@ export default function App() {
     </div>
   );
 }
+

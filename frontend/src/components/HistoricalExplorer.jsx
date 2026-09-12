@@ -59,7 +59,7 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
           <span className="badge badge-neutral">{totalCount.toLocaleString()} Total Matches</span>
         </div>
 
-        <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
+        <div className="explorer-filter-bar">
           <input
             type="text"
             placeholder="Search keywords (e.g. 'offline greyed out', 'charged twice', 'bluetooth car')..."
@@ -73,6 +73,7 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
               border: '1px solid var(--card-border)',
               fontSize: '13px',
               outline: 'none',
+              minHeight: '40px',
             }}
           />
 
@@ -86,6 +87,7 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
               fontSize: '13px',
               backgroundColor: '#ffffff',
               outline: 'none',
+              minHeight: '40px',
             }}
           >
             {INTENT_OPTIONS.map(opt => (
@@ -97,6 +99,7 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
             className="btn btn-primary"
             onClick={() => performSearch()}
             disabled={loading}
+            style={{ minHeight: '40px' }}
           >
             {loading ? <span className="spinner"></span> : "Search"}
           </button>
@@ -113,8 +116,8 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
         ) : results.length > 0 ? (
           results.map((item, idx) => (
             <div key={idx} className="card" style={{ padding: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                   <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>
                     Conversation #{item.conversation_id}
                   </span>
@@ -129,7 +132,7 @@ export default function HistoricalExplorer({ apiBaseUrl = "https://resolveai-bac
                 )}
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '13px' }}>
+              <div className="explorer-case-grid">
                 <div style={{ backgroundColor: '#f8fafc', padding: '12px', borderRadius: '6px', border: '1px solid #f1f5f9' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                     Customer Inquiry:

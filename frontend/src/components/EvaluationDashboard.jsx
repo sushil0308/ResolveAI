@@ -57,7 +57,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Top Header Summary */}
       <div className="card" style={{ background: 'linear-gradient(135deg, #0f172a, #1e293b)', color: '#ffffff' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--brand-green)', fontWeight: 700 }}>
               Rigorous Empirical Benchmark
@@ -69,7 +69,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
               Evaluated across {data.golden_set_size || 200} Golden Set cases (40 hand-labelled by human reviewer, 160 AI-assisted verified).
             </p>
           </div>
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'left' }}>
             <span className="badge badge-auto" style={{ backgroundColor: '#064e3b', color: '#34d399', borderColor: '#047857' }}>
               {data.leakage_check && data.leakage_check.zero_leakage_verified ? "Zero Leakage Verified" : "Leakage Check Passed"}
             </span>
@@ -161,7 +161,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
       </div>
 
       {/* Section 2: Escalation Performance & Safety Matrix */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      <div className="responsive-grid-2">
         {/* Confusion Matrix Card */}
         <div className="card">
           <div className="card-header">
@@ -171,7 +171,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', marginTop: '8px' }}>
             <div style={{ padding: '14px', backgroundColor: '#ecfdf5', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#065f46', textTransform: 'uppercase' }}>True Auto-Handle (TN)</span>
               <div style={{ fontSize: '24px', fontWeight: 800, color: '#065f46', marginTop: '4px' }}>{esc.confusion_matrix.true_auto_handle_tn}</div>
@@ -216,11 +216,11 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
           {qual ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {Object.entries(qual).map(([dim, val]) => (
-                <div key={dim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
-                  <span style={{ textTransform: 'capitalize', fontWeight: 500, color: 'var(--text-secondary)' }}>
+                <div key={dim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px', flexWrap: 'wrap', gap: '8px' }}>
+                  <span style={{ textTransform: 'capitalize', fontWeight: 500, color: 'var(--text-secondary)', minWidth: '110px' }}>
                     {dim.replace(/_/g, ' ')}
                   </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', width: '60%' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: '140px', justifyContent: 'flex-end' }}>
                     <div style={{ flex: 1, height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
                       <div
                         style={{
@@ -236,6 +236,7 @@ export default function EvaluationDashboard({ apiBaseUrl = "https://resolveai-ba
                 </div>
               ))}
             </div>
+
           ) : qualData && qualData.status === 'api_error' ? (
             <div style={{ padding: '16px', backgroundColor: '#fefce8', borderRadius: '8px', border: '1px solid #fef08a', color: '#854d0e', fontSize: '13px', lineHeight: 1.6 }}>
               <strong>Google Gemini Free-Tier Quota Limit</strong>

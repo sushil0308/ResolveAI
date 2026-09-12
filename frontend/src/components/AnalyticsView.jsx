@@ -83,7 +83,7 @@ export default function AnalyticsView({ apiBaseUrl = "https://resolveai-backend-
       </div>
 
       {/* Grid: Intent Distribution & Escalation Split */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      <div className="responsive-grid-2">
         {/* Intent Distribution */}
         <div className="card">
           <div className="card-header">
